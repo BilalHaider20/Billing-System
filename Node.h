@@ -1,3 +1,6 @@
+#ifndef NODE_H
+#define NODE_H
+
 #include "product.h"
 
 class Node
@@ -38,3 +41,5 @@ public:
         nextPtr = p;
     }
 };
+
+#endif // NODE_H

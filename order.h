@@ -1,3 +1,6 @@
+#ifndef ORDER_H
+#define ORDER_H
+
 #include <iostream>
 #include "productsList.h"
 using namespace std;
@@ -48,3 +51,5 @@ public:
         return rand() % max;
     }
 };
+
+#endif // ORDER_H
