@@ -40,7 +40,9 @@ int main()
     while (true)
     {
         system("cls");
-        cout << "\t\tFri-Chicks\n\n";
+        cout << "\t\tFri-Chicks\n";
+        cout << "........................................\n\n";
+
         cout << "1. Manage Menu \n2. Generate Bill \n3. Billing History \n4. Total Sales \n5. Exit" << endl;
         cout << "\nEnter the corresponding number ";
 
