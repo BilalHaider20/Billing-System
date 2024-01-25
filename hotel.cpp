@@ -2,7 +2,7 @@
 #include "Menu.cpp"
 #include <stack>
 using namespace std;
-#include "CreateOrders.cpp"
+#include "order.cpp"
 class Hotel
 {
 private:
@@ -10,7 +10,7 @@ private:
 
 public:
     Menu menu;
-    stack<CreateOrders> stack;
+    stack<Order> stack;
     Hotel()
     {
         name = "-";
@@ -53,8 +53,8 @@ public:
 
         // cart->addProduct(product to be added in cart);
         double bill = GenerateBill(cart);
-        // CreateOrder order = new CreateOrder(cart,bill);
-        //stack.push(order);
+        // Order new_order = new Order(cart,bill);
+        //stack.push(new_order);
     }
     void menuManager()
     {
