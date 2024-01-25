@@ -1,57 +1,116 @@
 #include <iostream>
 using namespace std;
-#include "Product.cpp"
+#include "productsList.h"
+
 class Menu
 {
-    private:
+private:
+    ProductsList *Fast_food = new ProductsList("Fast Food");
+    ProductsList *Desi_food = new ProductsList("Desi Food");
+    ProductsList *Drinks = new ProductsList("Drinks");
 
-    public:
-    Product *Fast_food;
-    Product* Desi_food;
-    Product* Drinks;
-    Product* getFast_food_menu()
+public:
+    void AddItem()
     {
-        return this->Fast_food;
-    }
-    Product* getDesi_food_menu()
-    {
-        return this->Desi_food;
-    }
-    Product* getDrinks_menu()
-    {
-        return this->Drinks;
-    }
-    void AddItem(Product new_item,Product* category)
-    {
-        //coming item with category in which we are going to add
-        if(category==NULL)
+        string name;
+        string id;
+        double price;
+        char c;
+
+        ProductsList *temp;
+
+        cout << "Add Products.\n";
+        while (true)
         {
-            // point head and tail
+            cout << "Select Category: ";
+            cout << "\n1. Fast Food \n2. Desi Food \n3. Drinks \n";
+            cin >> c;
+            switch (c)
+            {
+            case '1':
+                temp = Fast_food;
+                break;
+            case '2':
+                temp = Desi_food;
+                break;
+            case '3':
+                temp = Drinks;
+                break;
+
+            default:
+                break;
+            }
+
+            cout << "\nProduct Name: ";
+            cin >> name;
+            cout << "\nProduct ID: ";
+            cin >> id;
+            cout << "\nProduct Price: ";
+            cin >> price;
+
+            temp->addProduct(Product(id, name, price));
+
+            cout << "\nItem Added Successfuly!\n";
+
+            cout << "Want to add another product? (y/n) ";
+            cin >> c;
+            switch (c)
+            {
+            case 'y':
+            case 'Y':
+                break;
+            case 'n':
+            case 'N':
+                return;
+            default:
+                break;
+            }
+        }
+    }
+
+    void deleteItem()
+    {
+
+        ProductsList *temp;
+        char c;
+
+        cout << "Delete Products.\n";
+        cout << "Select Category: ";
+        cout << "\n1. Fast Food \n2. Desi Food \n3. Drinks \n";
+        cin >> c;
+        switch (c)
+        {
+        case '1':
+            temp = Fast_food;
+            break;
+        case '2':
+            temp = Desi_food;
+            break;
+        case '3':
+            temp = Drinks;
+            break;
+
+        default:
+            break;
         }
 
+        string id;
+        cout << "\nProduct Name: ";
+        cin >> id;
+
+        if (!temp->deleteProduct(id))
+            cout << "\nItem Not Found!\n";
+        else
+            cout << "\nItem Deleted Successfuly!\n";
     }
+
     void Display_menu()
     {
-        Product *curr = this->Fast_food;
-        cout << "FAST FOOD" << endl;
-        while(curr!=NULL)
-        {
-            cout << curr->getProduct_ID() << "\t\t" << curr->getProduct_name() << "\t\t" << curr->getProduct_price() << endl;
-        }
-        cout << endl;
-        curr = this->Desi_food;
-        cout << "DESI FOOD" << endl;
-        while(curr!=NULL)
-        {
-            cout << curr->getProduct_ID() << "\t\t" << curr->getProduct_name() << "\t\t" << curr->getProduct_price() << endl;
-        }
-        cout << endl;
-        curr = this->Fast_food;
-        cout << "DRINKS" << endl;
-        while(curr!=NULL)
-        {
-            cout << curr->getProduct_ID() << "\t\t" << curr->getProduct_name() << "\t\t" << curr->getProduct_price() << endl;
-        }
-        cout << endl;
-    }
+
+        Fast_food->print();
+        Desi_food->print();
+        Drinks->print();
+
+      }
+    
 };
