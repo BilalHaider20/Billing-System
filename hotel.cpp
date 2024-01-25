@@ -2,7 +2,7 @@
 #include "Menu.cpp"
 #include <stack>
 using namespace std;
-
+#include "CreateOrders.cpp"
 class Hotel
 {
 private:
@@ -10,7 +10,7 @@ private:
 
 public:
     Menu menu;
-    stack<ProductsList*> stack;
+    stack<CreateOrders> stack;
     Hotel()
     {
         name = "-";
@@ -20,28 +20,41 @@ public:
         this->name = name;
     }
 
-    int GenerateBill(ProductsList *cart,string costumer_name)
+    int GenerateBill(ProductsList *cart)
     {
         Node *temp = cart->getHead();
 
         double bill = 0;
-        ProductsList* purchase_items = new ProductsList(costumer_name);
+       
         while (temp != nullptr)
         {
             bill += temp->getData().getProduct_price();
-            purchase_items->addProduct(temp->getData());
+            
             temp = temp->getNextPtr();
         }
-        Add_To_History(purchase_items);
+       
         return bill;
     }
-    void Add_To_History(ProductsList* purchased_items)
-    {
-        stack.push(purchased_items);
-    }
+    
     void Billing_History()
     {
-        
+        while(!stack.empty())
+        {
+            //printing details 
+        }
+    }
+    void Take_order()
+    {
+        ProductsList *cart;
+        //display menu
+        menu.Display_menu();
+        cout <<" -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --" << endl;
+        //product election code will be here
+
+        // cart->addProduct(product to be added in cart);
+        double bill = GenerateBill(cart);
+        // CreateOrder order = new CreateOrder(cart,bill);
+        //stack.push(order);
     }
     void menuManager()
     {
