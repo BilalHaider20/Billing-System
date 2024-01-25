@@ -1,7 +1,8 @@
 #include <iostream>
-using namespace std;
+#include <conio.h>
 #include "productsList.h"
 
+using namespace std;
 class Menu
 {
 private:
@@ -16,13 +17,14 @@ public:
         string id;
         double price;
         char c;
-
         ProductsList *temp;
 
-        cout << "Add Products.\n";
         while (true)
         {
-            cout << "Select Category: ";
+            system("cls");
+            cout << "\t\tFri-Chicks\n";
+            cout << ".............. Add Products .............\n\n";
+            cout << "\nSelect Category: ";
             cout << "\n1. Fast Food \n2. Desi Food \n3. Drinks \n";
             cin >> c;
             switch (c)
@@ -43,16 +45,15 @@ public:
 
             cout << "\nProduct Name: ";
             cin >> name;
-            cout << "\nProduct ID: ";
+            cout << "Product ID: ";
             cin >> id;
-            cout << "\nProduct Price: ";
+            cout << "Product Price: ";
             cin >> price;
 
             temp->addProduct(Product(id, name, price));
 
             cout << "\nItem Added Successfuly!\n";
-
-            cout << "Want to add another product? (y/n) ";
+            cout << "\nWant to add another product? (y/n) ";
             cin >> c;
             switch (c)
             {
@@ -74,43 +75,72 @@ public:
         ProductsList *temp;
         char c;
 
-        cout << "Delete Products.\n";
-        cout << "Select Category: ";
-        cout << "\n1. Fast Food \n2. Desi Food \n3. Drinks \n";
-        cin >> c;
-        switch (c)
+        while (true)
         {
-        case '1':
-            temp = Fast_food;
-            break;
-        case '2':
-            temp = Desi_food;
-            break;
-        case '3':
-            temp = Drinks;
-            break;
+            system("cls");
+            cout << "\t\tFri-Chicks\n";
+            cout << "............ Delete Products ...........\n\n";
+            cout << "\nSelect Category: ";
+            cout << "\n1. Fast Food \n2. Desi Food \n3. Drinks \n";
+            cin >> c;
+            switch (c)
+            {
+            case '1':
+                temp = Fast_food;
+                break;
+            case '2':
+                temp = Desi_food;
+                break;
+            case '3':
+                temp = Drinks;
+                break;
 
-        default:
-            break;
+            default:
+                break;
+            }
+
+            string id;
+            cout << "\nProduct id: ";
+            cin >> id;
+
+            if (!temp->deleteProduct(id))
+                cout << "\nItem Not Found!\n";
+            else
+                cout << "\nItem Deleted Successfuly!\n";
+
+            cout << "\nWant to delete another product? (y/n) ";
+            cin >> c;
+            switch (c)
+            {
+            case 'y':
+            case 'Y':
+                break;
+            case 'n':
+            case 'N':
+                return;
+            default:
+                break;
+            }
         }
+    }
 
-        string id;
-        cout << "\nProduct Name: ";
-        cin >> id;
-
-        if (!temp->deleteProduct(id))
-            cout << "\nItem Not Found!\n";
-        else
-            cout << "\nItem Deleted Successfuly!\n";
+    void pressToContinue()
+    {
+        cout << "\n\nPress to continue...\n\n";
+        getch();
+        char c;
+        cin.get(c);
     }
 
     void Display_menu()
     {
-
+        system("cls");
+        cout << "\t\tFri-Chicks\n";
+        cout << ".................. Menu .................\n\n";
         Fast_food->print();
         Desi_food->print();
         Drinks->print();
 
-      }
-    
+        pressToContinue();
+    }
 };
