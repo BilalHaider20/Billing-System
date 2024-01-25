@@ -1,8 +1,9 @@
 #include <iostream>
 #include "Menu.cpp"
 #include <stack>
+#include <string.h>
 using namespace std;
-#include "order.cpp"
+#include "order.h"
 class Hotel
 {
 private:
@@ -49,11 +50,14 @@ public:
         //display menu
         menu.Display_menu();
         cout <<" -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --" << endl;
-        //product election code will be here
+        //product selection code will be here
+        cout << "\nCostumer Name ";
+        string name;
+        //getline(cin,name);
 
         // cart->addProduct(product to be added in cart);
         double bill = GenerateBill(cart);
-        // Order new_order = new Order(cart,bill);
+        // Order new_order = new Order(name,bill,cart);
         //stack.push(new_order);
     }
     void menuManager()
