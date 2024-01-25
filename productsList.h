@@ -27,7 +27,7 @@ public:
         tail = nullptr;
     }
 
-    int size() const
+    int getSize() const
     {
         return size;
     }
@@ -57,6 +57,8 @@ public:
 
     bool deleteProduct(string ID)
     {
+        if (size == 0)
+            return false;
         if (ID == head->getData().getProduct_ID())
         {
             Node *current = head;
@@ -87,10 +89,14 @@ public:
     void print()
     {
         Node *curr = head;
-        cout << category << ": " << endl;
-        while (curr != NULL)
+        cout << "-----------------------------------------\n| "
+             << category << "\t\t\t\t|\n-----------------------------------------\n";
+        cout << "Product ID \tName\t\tPrice" << endl;
+        while (curr != nullptr)
         {
             cout << curr->getData().getProduct_ID() << "\t\t" << curr->getData().getProduct_name() << "\t\tRs." << curr->getData().getProduct_price() << endl;
+            curr = curr->getNextPtr();
         }
+        cout << "\n\n\n";
     }
 };
