@@ -1,10 +1,27 @@
 #include <iostream>
 using namespace std;
-#include "Menu.cpp"
+#include <stdlib.h>
+#include "Menu.h"
 void Menu()
 {
     cout << "1.See Menu\n2.Add New Item in Menu\n3.Delete Item in Menu\n4.Exit Menu setting" << endl;
-    //Menu menu;
+    char user_input;
+    cin >> user_input;
+    Menu menu();
+    switch(user_input)
+    {
+        case '1':
+            menu.Display_menu();
+            break;
+        case '2':
+            break;
+        case '3':
+            break;
+        case '4':
+            return;
+            break;
+
+    }
 
 }
 int main()
@@ -17,7 +34,7 @@ int main()
     switch(input)
     {
         case '1':
-            //clear screen statment
+            system("CLS");
             Menu();
             break;
         case '2':

@@ -8,7 +8,7 @@ private:
     string category;
     Node *head;
     Node *tail;
-    int size;
+    //int size;
 
 public:
     ProductsList()
@@ -27,10 +27,10 @@ public:
         tail = nullptr;
     }
 
-    int size() const
-    {
-        return size;
-    }
+    // int size() const
+    // {
+    //     return size;
+    // }
 
     string getCategory()
     {
@@ -40,18 +40,18 @@ public:
     void addProduct(Product p)
     {
         Node *N = new Node(p);
-        if (size == 0)
+        if (head==NULL)
         {
             N->setNextPtr(nullptr);
             head = N;
             tail = N;
-            size++;
+            //size++;
             return;
         }
 
         tail->setNextPtr(N);
         tail = tail->getNextPtr();
-        size++;
+        //size++;
         return;
     }
 
@@ -63,7 +63,7 @@ public:
             head = nullptr;
             tail = nullptr;
             delete current;
-            size--;
+            //size--;
             return true;
         }
 
@@ -76,7 +76,7 @@ public:
             if (ID == (current->getData().getProduct_ID()))
             {
                 previous->setNextPtr(current->getNextPtr());
-                size--;
+                //size--;
                 delete current;
                 return true;
             }
