@@ -9,6 +9,7 @@ private:
 
 public:
     Menu menu;
+
     Hotel()
     {
         name = "-";
@@ -17,6 +18,10 @@ public:
     {
         this->name = name;
     }
+
+    void GenerateBill(ProductsList *p)
+    {
+        }
 
     void menuManager()
     {
