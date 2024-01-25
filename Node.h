@@ -1,4 +1,4 @@
-#include "product.cpp"
+#include "product.h"
 
 class Node
 {

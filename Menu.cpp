@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-#include "productsList.cpp"
+#include "productsList.h"
 
 class Menu
 {
