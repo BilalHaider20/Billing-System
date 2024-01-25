@@ -3,18 +3,18 @@ using namespace std;
 class Product
 {
 private:
-    int product_ID;
+    string product_ID;
     string product_name;
     int product_price;
 
 public:
     Product()
     {
-        this->product_ID = 0;
+        this->product_ID = "";
         this->product_name = "";
         this->product_price = 0;
     }
-    Product(int ID, string name, int price)
+    Product(string ID, string name, int price)
     {
         this->product_ID = ID;
         this->product_name = name;
@@ -29,7 +29,7 @@ public:
     {
         return product_price;
     }
-    int getProduct_ID() const
+    string getProduct_ID() const
     {
         return product_ID;
     }
