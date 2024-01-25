@@ -1,7 +1,6 @@
 #include <iostream>
-
+#include "Menu.cpp"
 using namespace std;
-
 
 void menuManager()
 {
@@ -51,9 +50,7 @@ int main()
         switch (input)
         {
         case '1':
-            system("CLS");
             menuManager();
-
             break;
         case '2':
             break;
