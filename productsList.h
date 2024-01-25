@@ -45,13 +45,13 @@ public:
             N->setNextPtr(nullptr);
             head = N;
             tail = N;
-            //size++;
+            size++;
             return;
         }
 
         tail->setNextPtr(N);
         tail = tail->getNextPtr();
-        //size++;
+        size++;
         return;
     }
 
@@ -65,7 +65,7 @@ public:
             head = nullptr;
             tail = nullptr;
             delete current;
-            //size--;
+            size--;
             return true;
         }
 
@@ -78,7 +78,7 @@ public:
             if (ID == (current->getData().getProduct_ID()))
             {
                 previous->setNextPtr(current->getNextPtr());
-                //size--;
+                size--;
                 delete current;
                 return true;
             }
