@@ -8,7 +8,7 @@ private:
     string category;
     Node *head;
     Node *tail;
-    //int size;
+    int size;
 
 public:
     ProductsList()
