@@ -59,15 +59,15 @@ public:
 
         cout <<" -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --" << endl;
         //product selection code will be here
-        
+
         cout << "\nCostumer Name ";
         string name;
         //getline(cin,name);
 
         // cart->addProduct(product to be added in cart);
         double bill = GenerateBill(cart);
-        // Order new_order = new Order(name,bill,cart);
-        //stack.push(new_order);
+        Order new_order(name,bill,cart);
+        stack.push(new_order);
     }
     void menuManager()
     {
