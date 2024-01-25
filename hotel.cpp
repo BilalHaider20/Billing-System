@@ -2,7 +2,7 @@
 #include "Menu.cpp"
 #include <stack>
 using namespace std;
-#include "order.cpp"
+#include "order.h"
 class Hotel
 {
 private:
@@ -25,36 +25,36 @@ public:
         Node *temp = cart->getHead();
 
         double bill = 0;
-       
+
         while (temp != nullptr)
         {
             bill += temp->getData().getProduct_price();
-            
+
             temp = temp->getNextPtr();
         }
-       
+
         return bill;
     }
-    
+
     void Billing_History()
     {
-        while(!stack.empty())
+        while (!stack.empty())
         {
-            //printing details 
+            // printing details
         }
     }
     void Take_order()
     {
         ProductsList *cart;
-        //display menu
+        // display menu
         menu.Display_menu();
-        cout <<" -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --" << endl;
-        //product election code will be here
+        cout << " -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --" << endl;
+        // product election code will be here
 
         // cart->addProduct(product to be added in cart);
         double bill = GenerateBill(cart);
         // Order new_order = new Order(cart,bill);
-        //stack.push(new_order);
+        // stack.push(new_order);
     }
     void menuManager()
     {
