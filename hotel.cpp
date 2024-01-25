@@ -26,29 +26,30 @@ public:
         Node *temp = cart->getHead();
 
         double bill = 0;
-       
+
         while (temp != nullptr)
         {
             bill += temp->getData().getProduct_price();
-            
+
             temp = temp->getNextPtr();
         }
-       
+
         return bill;
     }
-    
+
     void Billing_History()
     {
-        while(!stack.empty())
+        while (!stack.empty())
         {
-            //printing details 
+            // printing details
         }
     }
     void Take_order()
     {
         ProductsList *cart;
-        //display menu
+        // display menu
         menu.Display_menu();
+
         cout <<" -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --" << endl;
         //product selection code will be here
         cout << "\nCostumer Name ";
