@@ -19,9 +19,18 @@ public:
         this->name = name;
     }
 
-    void GenerateBill(ProductsList *p)
+    int GenerateBill(ProductsList *cart)
     {
+        Node *temp = cart->getHead();
+
+        double bill = 0;
+        while (temp != nullptr)
+        {
+            bill += temp->getData().getProduct_price();
+            temp = temp->getNextPtr();
         }
+        return bill;
+    }
 
     void menuManager()
     {

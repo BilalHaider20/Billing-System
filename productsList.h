@@ -11,6 +11,11 @@ private:
     int size;
 
 public:
+    Node *getHead()
+    {
+        return head;
+    }
+
     ProductsList()
     {
         category = "-";
@@ -40,7 +45,7 @@ public:
     void addProduct(Product p)
     {
         Node *N = new Node(p);
-        if (head==NULL)
+        if (head == NULL)
         {
             N->setNextPtr(nullptr);
             head = N;

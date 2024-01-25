@@ -7,6 +7,11 @@ private:
     Node *nextPtr;
 
 public:
+    Node()
+    {
+        nextPtr = nullptr;
+    }
+
     Node(Product p)
     {
         product = p;
