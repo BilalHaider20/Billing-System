@@ -41,7 +41,14 @@ public:
     {
         while (!stack.empty())
         {
-            // printing details
+            Order obj = stack.top();
+            cout << "Costumer Name : " << obj.getCustomerName()<<endl;
+            cout << "Invoice Number : " << obj.getInvoiceNumber()<<endl;
+            cout << "Items Purchased  \n";
+            ProductsList* products=obj.GetPurchasedItems();
+            products->print();
+            cout << "----------------------------------------------" << endl;
+            cout << "Total Bill\t\t" << obj.getBill();
         }
     }
     void Take_order()
@@ -52,6 +59,7 @@ public:
 
         cout <<" -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --" << endl;
         //product selection code will be here
+        
         cout << "\nCostumer Name ";
         string name;
         //getline(cin,name);
