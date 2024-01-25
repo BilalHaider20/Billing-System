@@ -1,6 +1,5 @@
 #include <iostream>
 using namespace std;
-#include "Product.cpp"
 #include "productsList.cpp"
 
 class Menu
@@ -24,7 +23,7 @@ public:
         while (true)
         {
             cout << "Select Category: ";
-            cout << "1. Fast Food \n2. Desi Food \n3. Drinks \n";
+            cout << "\n1. Fast Food \n2. Desi Food \n3. Drinks \n";
             cin >> c;
             switch (c)
             {
@@ -67,6 +66,41 @@ public:
                 break;
             }
         }
+    }
+
+    void deleteItem()
+    {
+        ProductsList *temp;
+        char c;
+
+        cout << "Delete Products.\n";
+        cout << "Select Category: ";
+        cout << "\n1. Fast Food \n2. Desi Food \n3. Drinks \n";
+        cin >> c;
+        switch (c)
+        {
+        case '1':
+            temp = Fast_food;
+            break;
+        case '2':
+            temp = Desi_food;
+            break;
+        case '3':
+            temp = Drinks;
+            break;
+
+        default:
+            break;
+        }
+
+        string id;
+        cout << "\nProduct Name: ";
+        cin >> id;
+
+        if (!temp->deleteProduct(id))
+            cout << "\nItem Not Found!\n";
+        else
+            cout << "\nItem Deleted Successfuly!\n";
     }
 
     void Display_menu()

@@ -1,5 +1,4 @@
 #include <iostream>
-#include "product.cpp"
 #include "Node.cpp"
 using namespace std;
 
@@ -56,7 +55,7 @@ public:
         return;
     }
 
-    void deleteProduct(string ID)
+    bool deleteProduct(string ID)
     {
         if (ID == head->getData().getProduct_ID())
         {
@@ -65,8 +64,9 @@ public:
             tail = nullptr;
             delete current;
             size--;
-            return;
+            return true;
         }
+
         Node *current = head;
         Node *previous;
         while (current->getNextPtr() != NULL)
@@ -78,9 +78,10 @@ public:
                 previous->setNextPtr(current->getNextPtr());
                 size--;
                 delete current;
-                return;
+                return true;
             }
         }
+        return false;
     }
 
     void print()
