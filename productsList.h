@@ -1,3 +1,6 @@
+#ifndef PRODUCTSLIST_H
+#define PRODUCTSLIST_H
+
 #include <iostream>
 #include "Node.h"
 using namespace std;
@@ -105,3 +108,5 @@ public:
         cout << "\n\n\n";
     }
 };
+
+#endif // PRODUCTSLIST_H
