@@ -3,8 +3,6 @@ using namespace std;
 #include "Product.cpp"
 class Menu
 {
-    private:
-
     public:
     Product *Fast_food;
     Product* Desi_food;
