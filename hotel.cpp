@@ -1,8 +1,8 @@
 #include <iostream>
+using namespace std;
 #include "Menu.cpp"
 #include <stack>
 #include <string.h>
-using namespace std;
 #include "order.h"
 class Hotel
 {
@@ -42,10 +42,10 @@ public:
         while (!stack.empty())
         {
             Order obj = stack.top();
-            cout << "Costumer Name : " << obj.getCustomerName()<<endl;
-            cout << "Invoice Number : " << obj.getInvoiceNumber()<<endl;
+            cout << "Costumer Name : " << obj.getCustomerName() << endl;
+            cout << "Invoice Number : " << obj.getInvoiceNumber() << endl;
             cout << "Items Purchased  \n";
-            ProductsList* products=obj.GetPurchasedItems();
+            ProductsList *products = obj.GetPurchasedItems();
             products->print();
             cout << "----------------------------------------------" << endl;
             cout << "Total Bill\t\t" << obj.getBill();
@@ -54,19 +54,42 @@ public:
     void Take_order()
     {
         ProductsList *cart;
-        // display menu
-        menu.Display_menu();
+        ProductsList *temp;
 
-        cout <<" -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --" << endl;
-        //product selection code will be here
+        // display menu
+        while (true)
+        {
+            cout << "What do you want to order ? " << endl;
+            cout << "\nSelect Category: ";
+            cout << "\n1. Fast Food \n2. Desi Food \n3. Drinks \n";
+            char c;
+            cin >> c;
+            switch (c)
+            {
+            case '1':
+                temp = menu.GetFast_Food();
+                break;
+            case '2':
+                temp = menu.GetDesi_Food();
+                break;
+            case '3':
+                temp = menu.GetDrinks();
+                break;
+            default:
+                cout << "Invalid input! Please Type correct number" << endl;
+            }
+        }
+        cout << temp->print() << endl;
+        cout << " -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --" << endl;
+        // product selection code will be here
 
         cout << "\nCostumer Name ";
         string name;
-        //getline(cin,name);
+        // getline(cin,name);
 
         // cart->addProduct(product to be added in cart);
         double bill = GenerateBill(cart);
-        Order new_order(name,bill,cart);
+        Order new_order(name, bill, cart);
         stack.push(new_order);
     }
     void menuManager()

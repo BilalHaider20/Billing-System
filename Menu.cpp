@@ -123,7 +123,18 @@ public:
             }
         }
     }
-
+    ProductsList* GetFast_Food()
+    {
+        return this->Fast_food;
+    }
+    ProductsList* GetDesi_Food()
+    {
+        return this->Desi_food;
+    }
+    ProductsList* GetDrinks()
+    {
+        return this->Drinks;
+    }
     void pressToContinue()
     {
         cout << "\n\nPress to continue...\n\n";
