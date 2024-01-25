@@ -134,6 +134,9 @@ public:
 
     void Display_menu()
     {
+        system("cls");
+        cout << "\t\tFri-Chicks\n";
+        cout << ".................. Menu .................\n\n";
         Fast_food->print();
         Desi_food->print();
         Drinks->print();
