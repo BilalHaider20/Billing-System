@@ -11,7 +11,7 @@ void menuManager()
         cout << "\t\tFri-Chicks\n";
         cout << "............ Menu Management ...........\n\n";
 
-        cout << "1. See Menu \n2. Add New Item in Menu \n3. Delete Item in Menu \n4. Go Back" << endl;
+        cout << "1. See Menu \n2. Add New Items in Menu \n3. Delete Items from Menu \n4. Go Back" << endl;
         cout << "\nEnter the corresponding number ";
         char input;
         cin >> input;
