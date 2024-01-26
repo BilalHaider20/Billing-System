@@ -56,7 +56,7 @@ public:
 
     void Take_order()
     {
-        if(menu.get_CategoriesList()->getSize()==0)
+        if (menu.get_CategoriesList()->getSize() == 0)
         {
             cout << "Menu is Empty. Please add Categories and items in menu " << endl;
             pressToContinue();
@@ -88,7 +88,7 @@ public:
 
         cout << "\nCostumer Name ";
         string name;
-        getline(cin,name);
+        getline(cin, name);
 
         // cart->addProduct(product to be added in cart);
         double bill = GenerateBill(cart);
@@ -172,7 +172,5 @@ public:
     {
         cout << "\n\nPress to continue...\n\n";
         getch();
-        char c;
-        cin.get(c);
     }
 };
