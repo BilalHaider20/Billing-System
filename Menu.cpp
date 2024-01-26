@@ -1,20 +1,66 @@
 #include <iostream>
 #include <conio.h>
-#include "productsList.h"
+#include "categories.h"
 
 using namespace std;
 class Menu
 {
 private:
-    ProductsList *Fast_food = new ProductsList("Fast Food");
-    ProductsList *Desi_food = new ProductsList("Desi Food");
-    ProductsList *Drinks = new ProductsList("Drinks");
+    Categories *categoriesList = new Categories();
 
 public:
+    void add_Category()
+    {
+        string category;
+        system("cls");
+        cout << "\t\tFri-Chicks\n";
+        cout << ".............. Add Category .............\n\n";
+        cout << "category Name: ";
+        cin >> category;
+        categoriesList->addCategory(category);
+        cout << "\nCategory added successfully\n";
+        pressToContinue();
+        return;
+    }
+
+    void delete_Category()
+    {
+        string category;
+        system("cls");
+        cout << "\t\tFri-Chicks\n";
+        cout << "............. Delete Category ............\n\n";
+        if (categoriesList->getSize() == 0)
+        {
+            cout << "\nCategory List is empty\n";
+            pressToContinue();
+            return;
+        }
+        cout << "\nSelect Category to delete: \n";
+        Node<ProductsList *> *curr = categoriesList->getHead();
+
+        for (int i = 1; i <= categoriesList->getSize(); i++)
+        {
+            cout << i << ". " << curr->getData()->getCategory() << endl;
+            curr = curr->getNextPtr();
+        }
+
+        int c;
+        cin >> c;
+        if (!categoriesList->deleteCategory(c))
+            cout << "\ncategory Not Found!\n";
+        else
+            cout << "\nCategory Deleted Successfuly!\n";
+        pressToContinue();
+    }
+
+    Categories *get_CategoriesList()
+    {
+        return categoriesList;
+    }
+
     void AddItem()
     {
         string name;
-        string id;
         double price;
         char c;
         ProductsList *temp;
@@ -24,33 +70,25 @@ public:
             system("cls");
             cout << "\t\tFri-Chicks\n";
             cout << ".............. Add Products .............\n\n";
-            cout << "\nSelect Category: ";
-            cout << "\n1. Fast Food \n2. Desi Food \n3. Drinks \n";
-            cin >> c;
-            switch (c)
-            {
-            case '1':
-                temp = Fast_food;
-                break;
-            case '2':
-                temp = Desi_food;
-                break;
-            case '3':
-                temp = Drinks;
-                break;
+            cout << "\nSelect Category: \n";
+            Node<ProductsList *> *curr = categoriesList->getHead();
 
-            default:
-                break;
+            for (int i = 1; i <= categoriesList->getSize(); i++)
+            {
+                cout << i << ". " << curr->getData()->getCategory() << endl;
+                curr = curr->getNextPtr();
             }
+            int ind;
+            cin >> ind;
+            temp = categoriesList->get_Category(ind);
 
             cout << "\nProduct Name: ";
             cin >> name;
-            cout << "Product ID: ";
-            cin >> id;
+
             cout << "Product Price: ";
             cin >> price;
-
-            temp->addProduct(Product(id, name, price));
+            int sr = temp->getSize() + 1;
+            temp->addProduct(Product(sr, name, price));
 
             cout << "\nItem Added Successfuly!\n";
             cout << "\nWant to add another product? (y/n) ";
@@ -80,30 +118,35 @@ public:
             system("cls");
             cout << "\t\tFri-Chicks\n";
             cout << "............ Delete Products ...........\n\n";
-            cout << "\nSelect Category: ";
-            cout << "\n1. Fast Food \n2. Desi Food \n3. Drinks \n";
-            cin >> c;
-            switch (c)
+            if (categoriesList->getSize() == 0)
             {
-            case '1':
-                temp = Fast_food;
-                break;
-            case '2':
-                temp = Desi_food;
-                break;
-            case '3':
-                temp = Drinks;
-                break;
-
-            default:
-                break;
+                cout << "\nList is empty\n";
+                pressToContinue();
+                return;
             }
+            cout << "\nSelect Category: \n";
+            Node<ProductsList *> *curr = categoriesList->getHead();
 
-            string id;
-            cout << "\nProduct id: ";
-            cin >> id;
+            for (int i = 1; i <= categoriesList->getSize(); i++)
+            {
+                cout << i << ". " << curr->getData()->getCategory() << endl;
+                curr = curr->getNextPtr();
+            }
+            int ind;
+            cin >> ind;
+            temp = categoriesList->get_Category(ind);
+            if (temp->getSize() == 0)
+            {
+                cout << "\nList is empty\n";
+                pressToContinue();
+                return;
+            }
+            cout << "\nSelect Item to delete: ";
+            temp->print();
 
-            if (!temp->deleteProduct(id))
+            cin >> ind;
+
+            if (!temp->deleteProduct(ind))
                 cout << "\nItem Not Found!\n";
             else
                 cout << "\nItem Deleted Successfuly!\n";
@@ -123,20 +166,6 @@ public:
             }
         }
     }
-    ProductsList *GetFast_Food()
-    {
-        return this->Fast_food;
-    }
-
-    ProductsList *GetDesi_Food()
-    {
-        return this->Desi_food;
-    }
-
-    ProductsList *GetDrinks()
-    {
-        return this->Drinks;
-    }
 
     void pressToContinue()
     {
@@ -151,10 +180,14 @@ public:
         system("cls");
         cout << "\t\tFri-Chicks\n";
         cout << ".................. Menu .................\n\n";
-        Fast_food->print();
-        Desi_food->print();
-        Drinks->print();
+        if (categoriesList->getSize() == 0)
+        {
+            cout << "\nMenu is empty\n";
+            pressToContinue();
+            return;
+        }
 
+        categoriesList->Print();
         pressToContinue();
     }
 };

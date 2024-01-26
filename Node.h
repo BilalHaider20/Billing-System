@@ -1,13 +1,12 @@
 #ifndef NODE_H
 #define NODE_H
 
-#include "product.h"
-
+template <class T>
 class Node
 {
 private:
-    Product product;
-    Node *nextPtr;
+    T data;
+    Node<T> *nextPtr;
 
 public:
     Node()
@@ -15,28 +14,28 @@ public:
         nextPtr = nullptr;
     }
 
-    Node(Product p)
+    Node(T d)
     {
-        product = p;
+        data = d;
         nextPtr = nullptr;
     }
 
-    Product getData()
+    T getData()
     {
-        return product;
+        return data;
     }
 
-    Node *getNextPtr()
+    Node<T> *getNextPtr()
     {
         return nextPtr;
     }
 
-    void setData(Product p)
+    void setData(T d)
     {
-        product = p;
+        data = d;
     }
 
-    void setNextPtr(Node *p)
+    void setNextPtr(Node<T> *p)
     {
         nextPtr = p;
     }

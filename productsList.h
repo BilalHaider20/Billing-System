@@ -3,18 +3,19 @@
 
 #include <iostream>
 #include "Node.h"
+#include "Product.h"
 using namespace std;
 
 class ProductsList
 {
 private:
     string category;
-    Node *head;
-    Node *tail;
+    Node<Product> *head;
+    Node<Product> *tail;
     int size;
 
 public:
-    Node *getHead()
+    Node<Product> *getHead()
     {
         return head;
     }
@@ -50,7 +51,7 @@ public:
         if (index == 1)
             return head->getData();
 
-        Node *curr = head;
+        Node<Product> *curr = head;
         for (int i = 1; i < index; i++)
         {
             curr = curr->getNextPtr();
@@ -60,7 +61,7 @@ public:
 
     void addProduct(Product p)
     {
-        Node *N = new Node(p);
+        Node<Product> *N = new Node(p);
         if (head == NULL)
         {
             N->setNextPtr(nullptr);
@@ -76,13 +77,13 @@ public:
         return;
     }
 
-    bool deleteProduct(string ID)
+    bool deleteProduct(int ind)
     {
         if (size == 0)
             return false;
-        if (ID == head->getData().getProduct_ID())
+        if (ind == head->getData().getSr())
         {
-            Node *current = head;
+            Node<Product> *current = head;
             head = nullptr;
             tail = nullptr;
             delete current;
@@ -90,13 +91,13 @@ public:
             return true;
         }
 
-        Node *current = head;
-        Node *previous;
+        Node<Product> *current = head;
+        Node<Product> *previous;
         while (current->getNextPtr() != NULL)
         {
             previous = current;
             current = current->getNextPtr();
-            if (ID == (current->getData().getProduct_ID()))
+            if (ind == (current->getData().getSr()))
             {
                 previous->setNextPtr(current->getNextPtr());
                 size--;
@@ -109,13 +110,13 @@ public:
 
     void print()
     {
-        Node *curr = head;
-        cout << "-----------------------------------------\n| "
-             << category << "\t\t\t\t|\n-----------------------------------------\n";
-        cout << "Product ID \tName\t\tPrice" << endl;
+        Node<Product> *curr = head;
+        cout << "\n-----------------------------------------\n "
+             << category << "\t\t\t\t\t\n-----------------------------------------\n";
+        cout << "Sr. \tName\t\t\tPrice" << endl;
         while (curr != nullptr)
         {
-            cout << curr->getData().getProduct_ID() << "\t\t" << curr->getData().getProduct_name() << "\t\tRs." << curr->getData().getProduct_price() << endl;
+            cout << curr->getData().getSr() << "\t" << curr->getData().getProduct_name() << "\t\t\tRs." << curr->getData().getProduct_price() << endl;
             curr = curr->getNextPtr();
         }
         cout << "\n\n\n";

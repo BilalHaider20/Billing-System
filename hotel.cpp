@@ -8,11 +8,12 @@ class Hotel
 {
 private:
     string name;
+    stack<Order> stack;
     int invoiceN = 10000000;
+    Menu menu;
+    Categories *categoriesList = menu.get_CategoriesList();
 
 public:
-    Menu menu;
-    stack<Order> stack;
     Hotel()
     {
         name = "-";
@@ -24,7 +25,7 @@ public:
 
     int GenerateBill(ProductsList *cart)
     {
-        Node *temp = cart->getHead();
+        Node<Product> *temp = cart->getHead();
 
         double bill = 0;
 
@@ -52,6 +53,7 @@ public:
             cout << "Total Bill\t\t" << obj.getBill();
         }
     }
+
     void Take_order()
     {
         ProductsList *cart;
@@ -62,24 +64,18 @@ public:
         {
             cout << "What do you want to order ? " << endl;
             cout << "\nSelect Category: ";
-            cout << "\n1. Fast Food \n2. Desi Food \n3. Drinks \n";
-            char c;
-            cin >> c;
-            switch (c)
+            Node<ProductsList *> *curr = categoriesList->getHead();
+
+            for (int i = 1; i <= categoriesList->getSize(); i++)
             {
-            case '1':
-                temp = menu.GetFast_Food();
-                break;
-            case '2':
-                temp = menu.GetDesi_Food();
-                break;
-            case '3':
-                temp = menu.GetDrinks();
-                break;
-            default:
-                cout << "Invalid input! Please Type correct number" << endl;
+                cout << i << ". " << curr->getData()->getCategory() << endl;
+                curr = curr->getNextPtr();
             }
+            int c;
+            cin >> c;
+            temp = categoriesList->get_Category(c);
         }
+
         temp->print();
         cout << " -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --" << endl;
         // product selection code will be here
@@ -103,7 +99,7 @@ public:
             cout << "\t\tFri-Chicks\n";
             cout << "............ Menu Management ...........\n\n";
 
-            cout << "1. See Menu \n2. Add New Items in Menu \n3. Delete Items from Menu \n4. Go Back" << endl;
+            cout << "1. See Menu \n2. Add Category \n3. Delete Category \n4. Add New Items in Menu \n5. Delete Items from Menu \n6. Go Back" << endl;
             cout << "\nEnter the corresponding number ";
             char input;
             cin >> input;
@@ -114,12 +110,18 @@ public:
                 menu.Display_menu();
                 break;
             case '2':
-                menu.AddItem();
+                menu.add_Category();
                 break;
             case '3':
-                menu.deleteItem();
+                menu.delete_Category();
                 break;
             case '4':
+                menu.AddItem();
+                break;
+            case '5':
+                menu.deleteItem();
+                break;
+            case '6':
                 return;
             default:
                 break;
