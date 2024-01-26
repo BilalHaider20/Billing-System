@@ -91,6 +91,14 @@ public:
             }
             int ind;
             cin >> ind;
+
+            if (ind > categoriesList->getSize() || ind < 1)
+            {
+                cout << "\nInvalid Input Entered\n";
+                pressToContinue();
+                return;
+            }
+
             temp = categoriesList->get_Category(ind);
             cin.ignore();
             cout << "\nProduct Name: ";
