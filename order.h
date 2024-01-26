@@ -70,7 +70,7 @@ public:
         for (int i = 1; i <= purchasedItems->getSize(); ++i)
         {
             Product product = purchasedItems->getProduct(i);
-            cout << i << ". " << product.getProduct_name() << "- Rs." << product.getProduct_price() << endl;
+            cout << i << ". " << product.getProduct_name() << "   -   Rs." << product.getProduct_price() << endl;
         }
 
         cout << "\nTotal Items Purchased: " << getTotalItems() << endl;
