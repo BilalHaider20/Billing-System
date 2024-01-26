@@ -1,16 +1,50 @@
 #include <iostream>
 #include <conio.h>
-#include "productsList.h"
+#include "categories.h"
 
 using namespace std;
 class Menu
 {
 private:
-    ProductsList *Fast_food = new ProductsList("Fast Food");
-    ProductsList *Desi_food = new ProductsList("Desi Food");
-    ProductsList *Drinks = new ProductsList("Drinks");
+    Categories *categoriesList = new Categories();
 
 public:
+    void add_Category()
+    {
+        string category;
+        system("cls");
+        cout << "\t\tFri-Chicks\n";
+        cout << ".............. Add Category .............\n\n";
+        cin >> category;
+        categoriesList->addCategory(category);
+        cout << "\nCategory added successfully\n";
+        pressToContinue();
+        return;
+    }
+
+    void delete_Category()
+    {
+        string category;
+        system("cls");
+        cout << "\t\tFri-Chicks\n";
+        cout << "............. Delete Category ............\n\n";
+        cout << "\nSelect Category to delete: ";
+        Node<ProductsList *> *curr = categoriesList->getHead();
+
+        for (int i = 1; i <= categoriesList->getSize(); i++)
+        {
+            cout << i << ". " << curr->getData()->getCategory() << endl;
+            curr = curr->getNextPtr();
+        }
+        int c;
+        cin >> c;
+    }
+
+    Categories *get_CategoriesList()
+    {
+        return categoriesList;
+    }
+
     void AddItem()
     {
         string name;
@@ -25,23 +59,16 @@ public:
             cout << "\t\tFri-Chicks\n";
             cout << ".............. Add Products .............\n\n";
             cout << "\nSelect Category: ";
-            cout << "\n1. Fast Food \n2. Desi Food \n3. Drinks \n";
-            cin >> c;
-            switch (c)
-            {
-            case '1':
-                temp = Fast_food;
-                break;
-            case '2':
-                temp = Desi_food;
-                break;
-            case '3':
-                temp = Drinks;
-                break;
+            Node<ProductsList *> *curr = categoriesList->getHead();
 
-            default:
-                break;
+            for (int i = 1; i <= categoriesList->getSize(); i++)
+            {
+                cout << i << ". " << curr->getData()->getCategory() << endl;
+                curr = curr->getNextPtr();
             }
+            int ind;
+            cin >> ind;
+            temp = categoriesList->get_Category(ind);
 
             cout << "\nProduct Name: ";
             cin >> name;
@@ -81,23 +108,16 @@ public:
             cout << "\t\tFri-Chicks\n";
             cout << "............ Delete Products ...........\n\n";
             cout << "\nSelect Category: ";
-            cout << "\n1. Fast Food \n2. Desi Food \n3. Drinks \n";
-            cin >> c;
-            switch (c)
-            {
-            case '1':
-                temp = Fast_food;
-                break;
-            case '2':
-                temp = Desi_food;
-                break;
-            case '3':
-                temp = Drinks;
-                break;
+            Node<ProductsList *> *curr = categoriesList->getHead();
 
-            default:
-                break;
+            for (int i = 1; i <= categoriesList->getSize(); i++)
+            {
+                cout << i << ". " << curr->getData()->getCategory() << endl;
+                curr = curr->getNextPtr();
             }
+            int ind;
+            cin >> ind;
+            temp = categoriesList->get_Category(ind);
 
             string id;
             cout << "\nProduct id: ";
@@ -123,20 +143,6 @@ public:
             }
         }
     }
-    ProductsList *GetFast_Food()
-    {
-        return this->Fast_food;
-    }
-
-    ProductsList *GetDesi_Food()
-    {
-        return this->Desi_food;
-    }
-
-    ProductsList *GetDrinks()
-    {
-        return this->Drinks;
-    }
 
     void pressToContinue()
     {
@@ -151,9 +157,7 @@ public:
         system("cls");
         cout << "\t\tFri-Chicks\n";
         cout << ".................. Menu .................\n\n";
-        Fast_food->print();
-        Desi_food->print();
-        Drinks->print();
+        categoriesList->Print();
 
         pressToContinue();
     }
