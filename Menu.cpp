@@ -83,7 +83,7 @@ public:
             int ind;
             cin >> ind;
             temp = categoriesList->get_Category(ind);
-
+            getch();
             cout << "\nProduct Name: ";
             getline(cin, name);
 
