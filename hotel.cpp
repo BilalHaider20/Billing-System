@@ -90,10 +90,11 @@ public:
 
         // cart->addProduct(product to be added in cart);
         double bill = GenerateBill(cart);
-        int inv = invoiceN++;
-        Order new_order(name, inv, bill, cart);
+
+        Order new_order(name, invoiceN++, bill, cart);
         stack.push(new_order);
     }
+
     void menuManager()
     {
         while (true)
