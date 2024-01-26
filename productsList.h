@@ -111,12 +111,12 @@ public:
     void print()
     {
         Node<Product> *curr = head;
-        cout << "-----------------------------------------\n| "
-             << category << "\t\t\t\t\t\t|\n-----------------------------------------\n";
-        cout << "Sr. \t\tName\t\tPrice" << endl;
+        cout << "\n-----------------------------------------\n "
+             << category << "\t\t\t\t\t\n-----------------------------------------\n";
+        cout << "Sr. \tName\t\t\tPrice" << endl;
         while (curr != nullptr)
         {
-            cout << curr->getData().getSr() << "\t\t" << curr->getData().getProduct_name() << "\t\tRs." << curr->getData().getProduct_price() << endl;
+            cout << curr->getData().getSr() << "\t" << curr->getData().getProduct_name() << "\t\t\tRs." << curr->getData().getProduct_price() << endl;
             curr = curr->getNextPtr();
         }
         cout << "\n\n\n";

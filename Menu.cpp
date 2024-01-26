@@ -15,6 +15,7 @@ public:
         system("cls");
         cout << "\t\tFri-Chicks\n";
         cout << ".............. Add Category .............\n\n";
+        cout << "category Name: ";
         cin >> category;
         categoriesList->addCategory(category);
         cout << "\nCategory added successfully\n";
@@ -86,8 +87,8 @@ public:
 
             cout << "Product Price: ";
             cin >> price;
-
-            temp->addProduct(Product(name, price));
+            int sr = temp->getSize() + 1;
+            temp->addProduct(Product(sr, name, price));
 
             cout << "\nItem Added Successfuly!\n";
             cout << "\nWant to add another product? (y/n) ";

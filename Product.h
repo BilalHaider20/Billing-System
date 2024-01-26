@@ -6,7 +6,7 @@ using namespace std;
 class Product
 {
 private:
-    int sr = 0;
+    int sr;
     string product_name;
     int product_price;
 
@@ -16,9 +16,9 @@ public:
         this->product_name = "";
         this->product_price = 0;
     }
-    Product(string name, int price)
+    Product(int sr, string name, int price)
     {
-        sr++;
+        this->sr = sr;
         this->product_name = name;
         this->product_price = price;
     }
