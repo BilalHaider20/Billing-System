@@ -77,11 +77,11 @@ public:
         return;
     }
 
-    bool deleteProduct(string ID)
+    bool deleteProduct(int ind)
     {
         if (size == 0)
             return false;
-        if (ID == head->getData().getProduct_ID())
+        if (ind == head->getData().getSr())
         {
             Node<Product> *current = head;
             head = nullptr;
@@ -97,7 +97,7 @@ public:
         {
             previous = current;
             current = current->getNextPtr();
-            if (ID == (current->getData().getProduct_ID()))
+            if (ind == (current->getData().getSr()))
             {
                 previous->setNextPtr(current->getNextPtr());
                 size--;
@@ -113,10 +113,10 @@ public:
         Node<Product> *curr = head;
         cout << "-----------------------------------------\n| "
              << category << "\t\t\t\t|\n-----------------------------------------\n";
-        cout << "Product ID \tName\t\tPrice" << endl;
+        cout << "Sr. \t\tName\t\tPrice" << endl;
         while (curr != nullptr)
         {
-            cout << curr->getData().getProduct_ID() << "\t\t" << curr->getData().getProduct_name() << "\t\tRs." << curr->getData().getProduct_price() << endl;
+            cout << curr->getData().getSr() << "\t\t" << curr->getData().getProduct_name() << "\t\tRs." << curr->getData().getProduct_price() << endl;
             curr = curr->getNextPtr();
         }
         cout << "\n\n\n";

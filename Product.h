@@ -6,20 +6,19 @@ using namespace std;
 class Product
 {
 private:
-    string product_ID;
+    int sr = 0;
     string product_name;
     int product_price;
 
 public:
     Product()
     {
-        this->product_ID = "";
         this->product_name = "";
         this->product_price = 0;
     }
-    Product(string ID, string name, int price)
+    Product(string name, int price)
     {
-        this->product_ID = ID;
+        sr++;
         this->product_name = name;
         this->product_price = price;
     }
@@ -33,9 +32,9 @@ public:
         return product_price;
     }
 
-    string getProduct_ID() const
+    int getSr() const
     {
-        return product_ID;
+        return sr;
     }
 
     string getProduct_name() const

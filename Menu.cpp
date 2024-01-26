@@ -36,8 +36,14 @@ public:
             cout << i << ". " << curr->getData()->getCategory() << endl;
             curr = curr->getNextPtr();
         }
+
         int c;
         cin >> c;
+        if (!categoriesList->deleteCategory(c))
+            cout << "\ncategory Not Found!\n";
+        else
+            cout << "\nCategory Deleted Successfuly!\n";
+        ;
     }
 
     Categories *get_CategoriesList()
@@ -48,7 +54,6 @@ public:
     void AddItem()
     {
         string name;
-        string id;
         double price;
         char c;
         ProductsList *temp;
@@ -72,12 +77,11 @@ public:
 
             cout << "\nProduct Name: ";
             cin >> name;
-            cout << "Product ID: ";
-            cin >> id;
+
             cout << "Product Price: ";
             cin >> price;
 
-            temp->addProduct(Product(id, name, price));
+            temp->addProduct(Product(name, price));
 
             cout << "\nItem Added Successfuly!\n";
             cout << "\nWant to add another product? (y/n) ";
@@ -119,11 +123,18 @@ public:
             cin >> ind;
             temp = categoriesList->get_Category(ind);
 
-            string id;
-            cout << "\nProduct id: ";
-            cin >> id;
+            cout << "\nSelect Item to delete: ";
+            Node<Product> *curr = temp->getHead();
 
-            if (!temp->deleteProduct(id))
+            for (int i = 1; i <= categoriesList->getSize(); i++)
+            {
+                curr->getData()->print();
+                curr = curr->getNextPtr();
+            }
+
+            cin >> ind;
+
+            if (!temp->deleteProduct(ind))
                 cout << "\nItem Not Found!\n";
             else
                 cout << "\nItem Deleted Successfuly!\n";

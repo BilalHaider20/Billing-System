@@ -65,26 +65,38 @@ public:
 
     bool deleteCategory(int ind)
     {
-        if (size == 0)
+        if (size == 0 || ind > size)
             return false;
 
-        if (ind < size)
+        if (size == ind == 1)
         {
-            Node<ProductsList *> *current = head;
-            Node<ProductsList *> *previous;
-            for (int i = 0; i < ind; i++)
-            {
-                previous = current;
-                current = current->getNextPtr();
-            }
-
-            previous->setNextPtr(current->getNextPtr());
+            Node<ProductsList *> *curr = head;
+            delete curr;
             size--;
-            delete current;
             return true;
         }
 
-        return false;
+        if (size > 1 && ind == 1)
+        {
+            Node<ProductsList *> *curr = head;
+            head = curr->getNextPtr();
+            size--;
+            delete curr;
+            return true;
+        }
+
+        Node<ProductsList *> *current = head;
+        Node<ProductsList *> *previous;
+        for (int i = 1; i < ind; i++)
+        {
+            previous = current;
+            current = current->getNextPtr();
+        }
+
+        previous->setNextPtr(current->getNextPtr());
+        size--;
+        delete current;
+        return true;
     }
 
     void Print()
