@@ -68,7 +68,7 @@ public:
         }
 
         ProductsList *cart = new ProductsList();
-        ProductsList *temp=NULL;
+        ProductsList *temp = NULL;
 
         menu.Display_menu();
 
@@ -81,6 +81,7 @@ public:
         cout << name << ", what do you want to order? " << endl;
         while (true)
         {
+
             cout << "\nSelect Category: \n";
 
             Node<ProductsList *> *curr = menu.get_CategoriesList()->getHead();
@@ -100,7 +101,6 @@ public:
             temp = menu.get_CategoriesList()->get_Category(c);
             break;
         }
-
         while (true)
         {
             system("CLS");
@@ -115,30 +115,15 @@ public:
                 pressToContinue();
                 continue;
             }
-            
+
             Product p = temp->getProduct(input);
             cart->addProduct(p);
-
-            cout << "\nWant to select another product? (y/n) ";
-            char c;
-            cin >> c;
-            switch (c)
-            {
-            case 'y':
-            case 'Y':
-                continue;
-            case 'n':
-            case 'N':
             double bill = GenerateBill(cart);
-            Order newOrder(name, invoiceNumber++, bill, cart);
-            orderStack.push(newOrder);
-            delete cart;
-                break;
-            default:
-                break;
-            }
+                Order newOrder(name, invoiceNumber++, bill, cart);
+                orderStack.push(newOrder);
+                delete cart;
+           
         }
-        
     }
 
     void MenuManager()
