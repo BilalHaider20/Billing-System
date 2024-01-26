@@ -1,9 +1,9 @@
 #include <iostream>
-using namespace std;
 #include "Menu.cpp"
 #include <stack>
 #include <string>
 #include "order.h"
+using namespace std;
 class Hotel
 {
 private:
@@ -56,7 +56,7 @@ public:
 
     void Take_order()
     {
-        if(menu.get_CategoriesList()->getSize()==0)
+        if (menu.get_CategoriesList()->getSize() == 0)
         {
             cout << "Menu is Empty ! \nPlease add Categories and items in menu " << endl;
             pressToContinue();
@@ -74,7 +74,7 @@ public:
         while (true)
         {
             cout << name<<" What do you want to order ? " << endl;
-            cout << "\nSelect Category: ";
+            cout << "\nSelect Category: \n";
             Node<ProductsList *> *curr = categoriesList->getHead();
 
             for (int i = 1; i <= categoriesList->getSize(); i++)
@@ -93,7 +93,7 @@ public:
         temp->print();
         cout << "--------------------------------------------" << endl;
         // product selection code will be here
-        
+
         
 
         // cart->addProduct(product to be added in cart);
@@ -120,6 +120,7 @@ public:
             {
             case '1':
                 menu.Display_menu();
+                pressToContinue();
                 break;
             case '2':
                 menu.add_Category();
@@ -178,7 +179,5 @@ public:
     {
         cout << "\n\nPress to continue...\n\n";
         getch();
-        char c;
-        cin.get(c);
     }
 };
