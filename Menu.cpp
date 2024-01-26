@@ -188,7 +188,6 @@ public:
         if (categoriesList->getSize() == 0)
         {
             cout << "\nMenu is empty\n";
-            pressToContinue();
             return;
         }
 
