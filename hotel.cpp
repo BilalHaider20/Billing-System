@@ -158,7 +158,7 @@ public:
         {
             Order obj = tempStack.top();
             totalSales += obj.getBill();
-            totalProducts += obj.GetPurchasedItems()->getSize();
+            totalProducts += obj.getTotalItems();
             tempStack.pop();
         }
 
