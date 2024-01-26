@@ -57,6 +57,8 @@ public:
     void print()
     {
         system("CLS");
+        cout << "\t\tFri-Chicks\n";
+        cout << "............... Invoice ..............\n\n";
         cout << "---------------------------------------------\n";
         cout << "\nInvoice Number: " << getInvoiceNumber() << endl;
         cout << "Customer Name: " << getCustomerName() << endl;

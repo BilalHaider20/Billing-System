@@ -44,6 +44,9 @@ public:
 
     void BillingHistory()
     {
+        system("cls");
+        cout << "\t\tFri-Chicks\n";
+        cout << "............ Billing History ...........\n\n";
         stack<Order> tempStack = orderStack;
 
         if (tempStack.empty())
@@ -64,9 +67,11 @@ public:
 
     void TakeOrder()
     {
+        system("cls");
+        cout << "\t\tFri-Chicks\n";
+        cout << "............. Place Order ............\n\n";
         if (menu.get_CategoriesList()->getSize() == 0)
         {
-            system("cls");
             cout << "Menu is Empty!\nPlease add Categories and items in the menu." << endl;
             pressToContinue();
             return;
@@ -83,6 +88,9 @@ public:
         while (true)
         {
             system("cls");
+            cout << "\t\tFri-Chicks\n";
+            cout << "............. Place Order ............\n\n";
+
             menu.Display_menu();
 
             cout << "-----------------------------------------\n\n";
@@ -117,6 +125,8 @@ public:
             while (true)
             {
                 system("CLS");
+                cout << "\t\tFri-Chicks\n";
+                cout << "............. Place Order ............\n\n";
                 temp->print();
                 cout << "--------------------------------------------" << endl;
                 cout << "Enter the serial number to add to Cart (Enter \"x\" when done): ";
@@ -161,9 +171,12 @@ public:
             totalProducts += obj.GetPurchasedItems()->getSize();
             tempStack.pop();
         }
-
+        system("cls");
+        cout << "\t\tFri-Chicks\n";
+        cout << "............. Total Sales ............\n\n";
         cout << "Total Sales: Rs." << totalSales << endl;
         cout << "Total Number of Products Sold: " << totalProducts << endl;
+        pressToContinue();
     }
 
     void MenuManager()
@@ -229,11 +242,9 @@ public:
                 break;
             case '3':
                 BillingHistory();
-                pressToContinue();
                 break;
             case '4':
                 Compute_Total_Sales();
-                pressToContinue();
                 break;
             case '5':
                 return;
