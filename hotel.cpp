@@ -119,10 +119,8 @@ public:
             Product p = temp->getProduct(input);
             cart->addProduct(p);
             double bill = GenerateBill(cart);
-                Order newOrder(name, invoiceNumber++, bill, cart);
-                orderStack.push(newOrder);
-                delete cart;
-           
+            orderStack.push(Order(name, invoiceNumber++, bill, cart));
+            delete cart;
         }
     }
 
