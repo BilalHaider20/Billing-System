@@ -73,7 +73,7 @@ public:
             cout << ".............. Add Products .............\n\n";
             if (categoriesList->getSize() == 0)
             {
-                cout << "\nAdd Category First.\n";
+                cout << "\nCategory List is Empty! \nPlease Add Category First.\n";
                 pressToContinue();
                 return;
             }
