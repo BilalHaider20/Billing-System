@@ -32,10 +32,12 @@ public:
     {
         return product_price;
     }
+
     string getProduct_ID() const
     {
         return product_ID;
     }
+
     string getProduct_name() const
     {
         return product_name;

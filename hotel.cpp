@@ -8,6 +8,7 @@ class Hotel
 {
 private:
     string name;
+    int invoiceN = 10000000;
 
 public:
     Menu menu;
@@ -79,7 +80,7 @@ public:
                 cout << "Invalid input! Please Type correct number" << endl;
             }
         }
-        cout << temp->print() << endl;
+        temp->print();
         cout << " -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --" << endl;
         // product selection code will be here
 
@@ -89,7 +90,8 @@ public:
 
         // cart->addProduct(product to be added in cart);
         double bill = GenerateBill(cart);
-        Order new_order(name, bill, cart);
+        int inv = invoiceN++;
+        Order new_order(name, inv, bill, cart);
         stack.push(new_order);
     }
     void menuManager()
