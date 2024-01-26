@@ -51,7 +51,8 @@ public:
 
     void print()
     {
-        cout << "\nInvoice Number: " << getInvoiceNumber() << endl;
+        cout << "-----------------------------------------\n";
+        cout << "Invoice Number: " << getInvoiceNumber() << endl;
         cout << "Customer Name: " << getCustomerName() << endl;
 
         cout << "\nItems Purchased:\n";
@@ -64,6 +65,7 @@ public:
 
         cout << "\nTotal Items: " << getTotalItems() << endl;
         cout << "Total Bill: Rs." << getBill() << endl;
+        cout << "-----------------------------------------\n";
     }
 };
 
