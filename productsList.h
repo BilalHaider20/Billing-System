@@ -12,7 +12,7 @@ private:
     string category;
     Node<Product> *head;
     Node<Product> *tail;
-    int size;
+    int size = 0;
 
 public:
     Node<Product> *getHead()

@@ -122,7 +122,8 @@ public:
             {
                 system("CLS");
                 cout << "\t\tFri-Chicks\n";
-                cout << "............. Place Order ............\n\n";
+                cout << ".............. Place Order .............\n\n";
+
                 temp->print();
                 cout << "--------------------------------------------" << endl;
                 cout << "Enter the serial number to add to Cart (Enter \"x\" when done): ";
@@ -143,7 +144,13 @@ public:
                 pressToContinue();
             }
         }
-
+        if (cart->getSize() == 0)
+        {
+            cout << "\nYou Haven't Placed Any Order\n";
+            delete cart;
+            pressToContinue();
+            return;
+        }
         double bill = GenerateBill(cart);
         Order newOrder(name, invoiceNumber++, bill, cart);
         orderStack.push(newOrder);
@@ -164,7 +171,7 @@ public:
         {
             Order obj = tempStack.top();
             totalSales += obj.getBill();
-            totalProducts += obj.GetPurchasedItems()->getSize();
+            totalProducts += obj.getTotalItems();
             tempStack.pop();
         }
         system("cls");
