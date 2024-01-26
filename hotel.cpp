@@ -69,7 +69,7 @@ public:
     {
         system("cls");
         cout << "\t\tFri-Chicks\n";
-        cout << "............. Place Order ............\n\n";
+        cout << ".............. Place Order .............\n\n";
         if (menu.get_CategoriesList()->getSize() == 0)
         {
             cout << "Menu is Empty!\nPlease add Categories and items in the menu." << endl;
@@ -87,10 +87,6 @@ public:
 
         while (true)
         {
-            system("cls");
-            cout << "\t\tFri-Chicks\n";
-            cout << "............. Place Order ............\n\n";
-
             menu.Display_menu();
 
             cout << "-----------------------------------------\n\n";
@@ -173,7 +169,7 @@ public:
         }
         system("cls");
         cout << "\t\tFri-Chicks\n";
-        cout << "............. Total Sales ............\n\n";
+        cout << "............... Total Sales ..............\n\n";
         cout << "Total Sales: Rs." << totalSales << endl;
         cout << "Total Number of Products Sold: " << totalProducts << endl;
         pressToContinue();
