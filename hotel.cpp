@@ -44,18 +44,6 @@ public:
 
     void BillingHistory()
     {
-        while (!orderStack.empty())
-        {
-            Order obj = orderStack.top();
-            cout << "Customer Name: " << obj.getCustomerName() << endl;
-            cout << "Invoice Number: " << obj.getInvoiceNumber() << endl;
-            cout << "Items Purchased:\n";
-            ProductsList *products = obj.GetPurchasedItems();
-            products->print();
-            cout << "----------------------------------------------" << endl;
-            cout << "Total Bill\t\t" << obj.getBill() << endl;
-            orderStack.pop();
-        }
     }
 
     void TakeOrder()
