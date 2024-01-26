@@ -229,7 +229,6 @@ public:
                 break;
             case '3':
                 BillingHistory();
-                pressToContinue();
                 break;
             case '4':
                 Compute_Total_Sales();
