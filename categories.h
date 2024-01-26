@@ -71,6 +71,8 @@ public:
         if ((size == 1) && (ind == 1))
         {
             Node<ProductsList *> *curr = head;
+            head = nullptr;
+            tail = nullptr;
             delete curr;
             size--;
             return true;

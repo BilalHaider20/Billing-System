@@ -44,8 +44,6 @@ public:
 
     void BillingHistory()
     {
-        system("CLS");
-        cout << "Orders History" << endl;
         while (!orderStack.empty())
         {
             Order obj = orderStack.top();
@@ -54,145 +52,94 @@ public:
             cout << "Items Purchased:\n";
             ProductsList *products = obj.GetPurchasedItems();
             products->print();
+            cout << "----------------------------------------------" << endl;
             cout << "Total Bill\t\t" << obj.getBill() << endl;
             orderStack.pop();
-            cout << "===============================================" << endl;
         }
     }
 
-   void TakeOrder()
-{
-    try
+    void TakeOrder()
     {
-        
         if (menu.get_CategoriesList()->getSize() == 0)
         {
-            throw runtime_error("Menu is Empty! Please add Categories and items in the menu.");
+            system("cls");
+            cout << "Menu is Empty!\nPlease add Categories and items in the menu." << endl;
+            pressToContinue();
+            return;
         }
 
-        
         ProductsList *cart = new ProductsList();
         ProductsList *temp = NULL;
 
-        
-        menu.Display_menu();
-        cout << "------------------------------" << endl;
         cout << "\nCustomer Name: ";
         cin.ignore();
         string name;
         getline(cin, name);
 
-        cout << name << ", what do you want to order? " << endl;
-
         while (true)
         {
-            
+            system("cls");
+            menu.Display_menu();
+
+            cout << "-----------------------------------------\n\n";
+
+            cout << "Hi " << name << "! What do you want to order? \n(Enter \"x\" when done) " << endl;
+
             cout << "\nSelect Category: \n";
+
             Node<ProductsList *> *curr = menu.get_CategoriesList()->getHead();
+
             for (int i = 1; i <= menu.get_CategoriesList()->getSize(); i++)
             {
                 cout << i << ". " << curr->getData()->getCategory() << endl;
                 curr = curr->getNextPtr();
             }
 
-            int categoryChoice;
-            cin >> categoryChoice;
+            char c;
+            cin >> c;
 
-            if (categoryChoice > menu.get_CategoriesList()->getSize() || categoryChoice < 1)
-            {
-                throw out_of_range("Invalid category choice. Please enter a valid category number.");
-            }
-
-            temp = menu.get_CategoriesList()->get_Category(categoryChoice);
-            break;
-        }
-
-        while (true)
-        {
-            
-            system("CLS");
-            temp->print();
-            cout << "--------------------------------------------" << endl;
-
-            
-            cout << "Enter the serial number to add to Cart: ";
-            int productChoice;
-            cin >> productChoice;
-
-           
-            if (productChoice > temp->getSize() || productChoice < 1)
-            {
-                throw out_of_range("Invalid input! Please enter a correct serial number.");
-            }
-
-
-            Product p = temp->getProduct(input);
-            cart->addProduct(p);
-            double bill = GenerateBill(cart);
-            orderStack.push(Order(name, invoiceNumber++, bill, cart));
-            delete cart;
-        }
-    }
-
-           
-            cout << "\nWant to add another product? (y/n) ";
-            char addMore;
-            cin >> addMore;
-
-            // Handle user response
-            if (addMore == 'n' || addMore == 'N')
-            {
+            if (c == 'x')
                 break;
-            }
-            else if (addMore != 'y' && addMore != 'Y')
+
+            if (c - 48 > menu.get_CategoriesList()->getSize() || c - 48 < 1)
             {
-                throw invalid_argument("Invalid input! Please enter 'y' or 'n'.");
+                cout << "\nInvalid Input\n";
+                pressToContinue();
+                continue;
+            }
+
+            temp = menu.get_CategoriesList()->get_Category(c - 48);
+
+            while (true)
+            {
+                system("CLS");
+                temp->print();
+                cout << "--------------------------------------------" << endl;
+                cout << "Enter the serial number to add to Cart (Enter \"x\" when done): ";
+                char input;
+                cin >> input;
+                if (input == 'x')
+                    break;
+                if (input - 48 > temp->getSize() || input - 48 < 1)
+                {
+                    cout << "Invalid input!\nPlease enter a correct serial number" << endl;
+                    pressToContinue();
+                    continue;
+                }
+
+                Product p = temp->getProduct(input - 48);
+                cart->addProduct(p);
+                cout << "\nAdded to Cart Successfully\n";
+                pressToContinue();
             }
         }
 
-        // Generate bill, create order, and add to order stack
         double bill = GenerateBill(cart);
-        Order newOrder(name, invoiceNumber++, bill, cart);
-        orderStack.push(newOrder);
-        Generate_Invoice(newOrder);
+        orderStack.push(Order(name, invoiceNumber++, bill, cart));
+        delete cart;
+        return;
     }
-    catch (const exception &ex)
-    {
-        cerr << "Error: " << ex.what() << endl;
-        pressToContinue();
-    }
-}
 
-    void Generate_Invoice(Order obj)
-    {
-        system("CLS");
-        cout << "\t\t"<<name << endl<<endl;
-        cout << "Customer Name: " << obj.getCustomerName() << endl;
-        cout << "Invoice Number: " << obj.getInvoiceNumber() << endl;
-        cout << "Items Purchased:\n";
-        ProductsList *products = obj.GetPurchasedItems();
-        products->print();
-        cout << "Total Bill\t\t" << obj.getBill() << endl;
-        cout << "===============================================" << endl;
-        pressToContinue();
-    }
-    void Compute_Total_Sales()
-{
-    double totalSales = 0;
-    int totalProducts = 0;
-
-
-    stack<Order> tempStack = orderStack; 
-    while (!tempStack.empty())
-    {
-        Order obj = tempStack.top();
-        totalSales += obj.getBill(); 
-        totalProducts += obj.GetPurchasedItems()->getSize(); 
-        tempStack.pop();
-    }
-    cout << "Total Sales: $" << totalSales << endl;
-    cout << "Total Number of Products Sold: " << totalProducts << endl;
-}
     void MenuManager()
     {
         while (true)
