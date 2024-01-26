@@ -62,6 +62,7 @@ public:
     {
         if (menu.get_CategoriesList()->getSize() == 0)
         {
+            system("cls");
             cout << "Menu is Empty!\nPlease add Categories and items in the menu." << endl;
             pressToContinue();
             return;
@@ -70,17 +71,19 @@ public:
         ProductsList *cart = new ProductsList();
         ProductsList *temp = NULL;
 
-        menu.Display_menu();
-
-        cout << "------------------------------" << endl;
         cout << "\nCustomer Name: ";
         cin.ignore();
         string name;
         getline(cin, name);
 
-        cout << name << ", what do you want to order? " << endl;
         while (true)
         {
+            system("cls");
+            menu.Display_menu();
+
+            cout << "-----------------------------------------\n\n";
+
+            cout << "Hi " << name << "! What do you want to order? \n(Enter \"x\" when done) " << endl;
 
             cout << "\nSelect Category: \n";
 
@@ -92,36 +95,49 @@ public:
                 curr = curr->getNextPtr();
             }
 
-            int c;
+            char c;
             cin >> c;
 
-            if (c > menu.get_CategoriesList()->getSize() || c < 1)
-                continue;
+            if (c == 'x')
+                break;
 
-            temp = menu.get_CategoriesList()->get_Category(c);
-            break;
-        }
-        while (true)
-        {
-            system("CLS");
-            temp->print();
-            cout << "--------------------------------------------" << endl;
-            cout << "Enter the serial number to add to Cart: ";
-            int input;
-            cin >> input;
-            if (input > temp->getSize() || input < 1)
+            if (c - 48 > menu.get_CategoriesList()->getSize() || c - 48 < 1)
             {
-                cout << "Invalid input!\nPlease enter a correct serial number" << endl;
+                cout << "\nInvalid Input\n";
                 pressToContinue();
                 continue;
             }
 
-            Product p = temp->getProduct(input);
-            cart->addProduct(p);
-            double bill = GenerateBill(cart);
-            orderStack.push(Order(name, invoiceNumber++, bill, cart));
-            delete cart;
+            temp = menu.get_CategoriesList()->get_Category(c - 48);
+
+            while (true)
+            {
+                system("CLS");
+                temp->print();
+                cout << "--------------------------------------------" << endl;
+                cout << "Enter the serial number to add to Cart (Enter \"x\" when done): ";
+                char input;
+                cin >> input;
+                if (input == 'x')
+                    break;
+                if (input - 48 > temp->getSize() || input - 48 < 1)
+                {
+                    cout << "Invalid input!\nPlease enter a correct serial number" << endl;
+                    pressToContinue();
+                    continue;
+                }
+
+                Product p = temp->getProduct(input - 48);
+                cart->addProduct(p);
+                cout << "\nAdded to Cart Successfully\n";
+                pressToContinue();
+            }
         }
+
+        double bill = GenerateBill(cart);
+        orderStack.push(Order(name, invoiceNumber++, bill, cart));
+        delete cart;
+        return;
     }
 
     void MenuManager()
