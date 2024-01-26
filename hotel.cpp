@@ -143,6 +143,23 @@ public:
         delete cart;
         return;
     }
+    void Compute_Total_Sales()
+    {
+        double totalSales = 0;
+        int totalProducts = 0;
+
+        stack<Order> tempStack = orderStack;
+        while (!tempStack.empty())
+        {
+            Order obj = tempStack.top();
+            totalSales += obj.getBill();
+            totalProducts += obj.GetPurchasedItems()->getSize();
+            tempStack.pop();
+        }
+
+        cout << "Total Sales: $" << totalSales << endl;
+        cout << "Total Number of Products Sold: " << totalProducts << endl;
+    }
 
     void MenuManager()
     {
@@ -210,7 +227,8 @@ public:
                 pressToContinue();
                 break;
             case '4':
-
+                Compute_Total_Sales();
+                pressToContinue();
                 break;
             case '5':
                 return;
