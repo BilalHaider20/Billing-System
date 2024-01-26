@@ -125,9 +125,14 @@ public:
                 throw out_of_range("Invalid input! Please enter a correct serial number.");
             }
 
-            
-            Product selectedProduct = temp->getProduct(productChoice);
-            cart->addProduct(selectedProduct);
+
+            Product p = temp->getProduct(input);
+            cart->addProduct(p);
+            double bill = GenerateBill(cart);
+            orderStack.push(Order(name, invoiceNumber++, bill, cart));
+            delete cart;
+        }
+    }
 
            
             cout << "\nWant to add another product? (y/n) ";
