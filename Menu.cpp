@@ -14,29 +14,13 @@ public:
         string category;
         system("cls");
         cout << "\t\tFri-Chicks\n";
-        while (true)
-        {
-            cout << ".............. Add Category .............\n\n";
-            cout << "category Name: ";
-            cin.ignore();
-            getline(cin, category);
-            categoriesList->addCategory(category);
-            cout << "\nCategory added successfully\n";
-            cout << "\nWant to add another product? (y/n) ";
-            char c;
-            cin >> c;
-            switch (c)
-            {
-            case 'y':
-            case 'Y':
-                break;
-            case 'n':
-            case 'N':
-                return;
-            default:
-                break;
-            }
-        }
+        cout << ".............. Add Category .............\n\n";
+        cout << "category Name: ";
+        cin.ignore();
+        getline(cin, category);
+        categoriesList->addCategory(category);
+        cout << "\nCategory added successfully\n";
+        pressToContinue();
         return;
     }
 
@@ -87,6 +71,12 @@ public:
             system("cls");
             cout << "\t\tFri-Chicks\n";
             cout << ".............. Add Products .............\n\n";
+            if (categoriesList->getSize() == 0)
+            {
+                cout << "\nCategory List is Empty! \nPlease Add Category First.\n";
+                pressToContinue();
+                return;
+            }
             cout << "\nSelect Category: \n";
             Node<ProductsList *> *curr = categoriesList->getHead();
 
@@ -98,9 +88,8 @@ public:
             int ind;
             cin >> ind;
             temp = categoriesList->get_Category(ind);
-
-            cout << "\nProduct Name: ";
             cin.ignore();
+            cout << "\nProduct Name: ";
             getline(cin, name);
 
             cout << "Product Price: ";
@@ -189,8 +178,6 @@ public:
     {
         cout << "\n\nPress to continue...\n\n";
         getch();
-        char c;
-        cin.get(c);
     }
 
     void Display_menu()
