@@ -14,14 +14,29 @@ public:
         string category;
         system("cls");
         cout << "\t\tFri-Chicks\n";
-        cout << ".............. Add Category .............\n\n";
-        cout << "category Name: ";
-        cin.ignore();
-        // cin.clear();
-        getline(cin,category);
-        categoriesList->addCategory(category);
-        cout << "\nCategory added successfully\n";
-        pressToContinue();
+        while (true)
+        {
+            cout << ".............. Add Category .............\n\n";
+            cout << "category Name: ";
+            cin.ignore();
+            getline(cin, category);
+            categoriesList->addCategory(category);
+            cout << "\nCategory added successfully\n";
+            cout << "\nWant to add another product? (y/n) ";
+            char c;
+            cin >> c;
+            switch (c)
+            {
+            case 'y':
+            case 'Y':
+                break;
+            case 'n':
+            case 'N':
+                return;
+            default:
+                break;
+            }
+        }
         return;
     }
 
@@ -86,7 +101,7 @@ public:
 
             cout << "\nProduct Name: ";
             cin.ignore();
-            getline(cin,name);
+            getline(cin, name);
 
             cout << "Product Price: ";
             cin >> price;
