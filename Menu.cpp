@@ -47,10 +47,14 @@ public:
 
         int c;
         cin >> c;
-        if (!categoriesList->deleteCategory(c))
-            cout << "\ncategory Not Found!\n";
-        else
-            cout << "\nCategory Deleted Successfuly!\n";
+        if (c > categoriesList->getSize() || c < 1)
+        {
+            cout << "\nInvalid Input Entered\n";
+            pressToContinue();
+            return;
+        }
+        categoriesList->deleteCategory(c);
+        cout << "\nCategory Deleted Successfuly!\n";
         pressToContinue();
     }
 
