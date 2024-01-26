@@ -72,6 +72,12 @@ public:
             system("cls");
             cout << "\t\tFri-Chicks\n";
             cout << ".............. Add Products .............\n\n";
+            if (categoriesList->getSize() == 0)
+            {
+                cout << "\nAdd Category First.\n";
+                pressToContinue();
+                return;
+            }
             cout << "\nSelect Category: \n";
             Node<ProductsList *> *curr = categoriesList->getHead();
 
@@ -83,7 +89,7 @@ public:
             int ind;
             cin >> ind;
             temp = categoriesList->get_Category(ind);
-            getch();
+            cin.ignore();
             cout << "\nProduct Name: ";
             getline(cin, name);
 
