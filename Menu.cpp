@@ -1,7 +1,7 @@
 #include <iostream>
 #include <conio.h>
 #include "categories.h"
-
+#include <string>
 using namespace std;
 class Menu
 {
@@ -16,7 +16,9 @@ public:
         cout << "\t\tFri-Chicks\n";
         cout << ".............. Add Category .............\n\n";
         cout << "category Name: ";
-        cin >> category;
+        cin.ignore();
+        cin.clear();
+        getline(cin,category);
         categoriesList->addCategory(category);
         cout << "\nCategory added successfully\n";
         pressToContinue();
@@ -83,7 +85,7 @@ public:
             temp = categoriesList->get_Category(ind);
 
             cout << "\nProduct Name: ";
-            cin >> name;
+            getline(cin,name);
 
             cout << "Product Price: ";
             cin >> price;
