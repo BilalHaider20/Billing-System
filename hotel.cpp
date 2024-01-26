@@ -43,8 +43,24 @@ public:
     }
 
     void BillingHistory()
+{
+    stack<Order> tempStack = orderStack;
+
+    if (tempStack.empty())
     {
+        cout << "No billing history available." << endl;
+        pressToContinue();
+        return;
     }
+
+    while (!tempStack.empty())
+    {
+        Order currentOrder = tempStack.top();
+        currentOrder.print();
+        tempStack.pop();
+    }
+    pressToContinue();
+}
 
     void TakeOrder()
     {
