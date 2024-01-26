@@ -28,7 +28,13 @@ public:
         system("cls");
         cout << "\t\tFri-Chicks\n";
         cout << "............. Delete Category ............\n\n";
-        cout << "\nSelect Category to delete: ";
+        if (categoriesList->getSize() == 0)
+        {
+            cout << "\nCategory List is empty\n";
+            pressToContinue();
+            return;
+        }
+        cout << "\nSelect Category to delete: \n";
         Node<ProductsList *> *curr = categoriesList->getHead();
 
         for (int i = 1; i <= categoriesList->getSize(); i++)
@@ -43,7 +49,7 @@ public:
             cout << "\ncategory Not Found!\n";
         else
             cout << "\nCategory Deleted Successfuly!\n";
-        ;
+        pressToContinue();
     }
 
     Categories *get_CategoriesList()
@@ -63,7 +69,7 @@ public:
             system("cls");
             cout << "\t\tFri-Chicks\n";
             cout << ".............. Add Products .............\n\n";
-            cout << "\nSelect Category: ";
+            cout << "\nSelect Category: \n";
             Node<ProductsList *> *curr = categoriesList->getHead();
 
             for (int i = 1; i <= categoriesList->getSize(); i++)
@@ -111,7 +117,13 @@ public:
             system("cls");
             cout << "\t\tFri-Chicks\n";
             cout << "............ Delete Products ...........\n\n";
-            cout << "\nSelect Category: ";
+            if (categoriesList->getSize() == 0)
+            {
+                cout << "\nList is empty\n";
+                pressToContinue();
+                return;
+            }
+            cout << "\nSelect Category: \n";
             Node<ProductsList *> *curr = categoriesList->getHead();
 
             for (int i = 1; i <= categoriesList->getSize(); i++)
@@ -122,15 +134,14 @@ public:
             int ind;
             cin >> ind;
             temp = categoriesList->get_Category(ind);
-
-            cout << "\nSelect Item to delete: ";
-            Node<Product> *curr = temp->getHead();
-
-            for (int i = 1; i <= categoriesList->getSize(); i++)
+            if (temp->getSize() == 0)
             {
-                curr->getData()->print();
-                curr = curr->getNextPtr();
+                cout << "\nList is empty\n";
+                pressToContinue();
+                return;
             }
+            cout << "\nSelect Item to delete: ";
+            temp->print();
 
             cin >> ind;
 
@@ -168,8 +179,14 @@ public:
         system("cls");
         cout << "\t\tFri-Chicks\n";
         cout << ".................. Menu .................\n\n";
-        categoriesList->Print();
+        if (categoriesList->getSize() == 0)
+        {
+            cout << "\nMenu is empty\n";
+            pressToContinue();
+            return;
+        }
 
+        categoriesList->Print();
         pressToContinue();
     }
 };

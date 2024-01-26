@@ -112,7 +112,7 @@ public:
     {
         Node<Product> *curr = head;
         cout << "-----------------------------------------\n| "
-             << category << "\t\t\t\t|\n-----------------------------------------\n";
+             << category << "\t\t\t\t\t\t|\n-----------------------------------------\n";
         cout << "Sr. \t\tName\t\tPrice" << endl;
         while (curr != nullptr)
         {
