@@ -61,7 +61,7 @@ public:
 
     void addProduct(Product p)
     {
-        Node<Product> *N = new Node(p);
+        Node<Product> *N = new Node<Product>(p);
         if (head == NULL)
         {
             N->setNextPtr(nullptr);

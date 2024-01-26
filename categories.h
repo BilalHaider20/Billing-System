@@ -47,7 +47,7 @@ public:
     void addCategory(string category)
     {
         ProductsList *p = new ProductsList(category);
-        Node<ProductsList *> *N = new Node(p);
+        Node<ProductsList *> *N = new Node<ProductsList*>(p);
         if (head == NULL)
         {
             N->setNextPtr(nullptr);
