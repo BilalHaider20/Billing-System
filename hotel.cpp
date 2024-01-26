@@ -70,10 +70,10 @@ public:
         cin.ignore();
         cin.clear();
         string name;
-        getline(cin,name);
+        getline(cin, name);
         while (true)
         {
-            cout << name<<" What do you want to order ? " << endl;
+            cout << name << " What do you want to order ? " << endl;
             cout << "\nSelect Category: \n";
             Node<ProductsList *> *curr = categoriesList->getHead();
 
@@ -84,8 +84,8 @@ public:
             }
             int c;
             cin >> c;
-            if(c>menu.get_CategoriesList()->getSize() || c<menu.get_CategoriesList()->getSize())
-            continue;
+            if (c > menu.get_CategoriesList()->getSize() || c < menu.get_CategoriesList()->getSize())
+                continue;
             temp = categoriesList->get_Category(c);
             break;
         }
@@ -93,8 +93,6 @@ public:
         temp->print();
         cout << "--------------------------------------------" << endl;
         // product selection code will be here
-
-        
 
         // cart->addProduct(product to be added in cart);
         double bill = GenerateBill(cart);
