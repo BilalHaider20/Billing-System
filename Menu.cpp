@@ -193,6 +193,5 @@ public:
         }
 
         categoriesList->Print();
-        pressToContinue();
     }
 };

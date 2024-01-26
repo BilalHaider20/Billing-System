@@ -1,9 +1,9 @@
 #include <iostream>
-using namespace std;
 #include "Menu.cpp"
 #include <stack>
 #include <string>
 #include "order.h"
+using namespace std;
 class Hotel
 {
 private:
@@ -69,7 +69,7 @@ public:
         while (true)
         {
             cout << "What do you want to order ? " << endl;
-            cout << "\nSelect Category: ";
+            cout << "\nSelect Category: \n";
             Node<ProductsList *> *curr = categoriesList->getHead();
 
             for (int i = 1; i <= categoriesList->getSize(); i++)
@@ -114,6 +114,7 @@ public:
             {
             case '1':
                 menu.Display_menu();
+                pressToContinue();
                 break;
             case '2':
                 menu.add_Category();
