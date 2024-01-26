@@ -45,6 +45,19 @@ public:
         return category;
     }
 
+    Product getProduct(int index)
+    {
+        if (index == 1)
+            return head->getData();
+
+        Node *curr = head;
+        for (int i = 1; i < index; i++)
+        {
+            curr = curr->getNextPtr();
+        }
+        return curr->getData();
+    }
+
     void addProduct(Product p)
     {
         Node *N = new Node(p);
