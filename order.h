@@ -56,8 +56,9 @@ public:
 
     void print()
     {
-        cout << "-----------------------------------------\n";
-        cout << "Invoice Number: " << getInvoiceNumber() << endl;
+        system("CLS");
+        cout << "---------------------------------------------\n";
+        cout << "\nInvoice Number: " << getInvoiceNumber() << endl;
         cout << "Customer Name: " << getCustomerName() << endl;
         cout << "Date and Time: " << dateTime;
 
