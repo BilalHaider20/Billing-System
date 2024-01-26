@@ -17,7 +17,6 @@ public:
         cout << ".............. Add Category .............\n\n";
         cout << "category Name: ";
         cin.ignore();
-        // cin.clear();
         getline(cin, category);
         categoriesList->addCategory(category);
         cout << "\nCategory added successfully\n";
@@ -179,7 +178,6 @@ public:
     {
         cout << "\n\nPress to continue...\n\n";
         getch();
-        // getch();
     }
 
     void Display_menu()
