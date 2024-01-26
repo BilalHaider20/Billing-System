@@ -43,24 +43,24 @@ public:
     }
 
     void BillingHistory()
-{
-    stack<Order> tempStack = orderStack;
-
-    if (tempStack.empty())
     {
-        cout << "No billing history available." << endl;
+        stack<Order> tempStack = orderStack;
+
+        if (tempStack.empty())
+        {
+            cout << "No billing history available." << endl;
+            pressToContinue();
+            return;
+        }
+
+        while (!tempStack.empty())
+        {
+            Order currentOrder = tempStack.top();
+            currentOrder.print();
+            tempStack.pop();
+        }
         pressToContinue();
-        return;
     }
-
-    while (!tempStack.empty())
-    {
-        Order currentOrder = tempStack.top();
-        currentOrder.print();
-        tempStack.pop();
-    }
-    pressToContinue();
-}
 
     void TakeOrder()
     {
@@ -162,7 +162,7 @@ public:
             tempStack.pop();
         }
 
-        cout << "Total Sales: $" << totalSales << endl;
+        cout << "Total Sales: Rs." << totalSales << endl;
         cout << "Total Number of Products Sold: " << totalProducts << endl;
     }
 
