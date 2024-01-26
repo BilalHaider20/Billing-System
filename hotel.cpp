@@ -44,6 +44,10 @@ public:
 
     void BillingHistory()
     {
+        system("CLS");
+        cout << "\n---------------------------------\n";
+        cout << "|\tORDER HISTORY\t\t|";
+        cout << "\n---------------------------------\n\n";
         stack<Order> tempStack = orderStack;
 
         if (tempStack.empty())
@@ -141,6 +145,7 @@ public:
         double bill = GenerateBill(cart);
         Order newOrder(name, invoiceNumber++, bill, cart);
         orderStack.push(newOrder);
+        cout << "\t\tINVOICE\n";
         newOrder.print();
         pressToContinue();
 
@@ -150,6 +155,10 @@ public:
 
     void Compute_Total_Sales()
     {
+        system("CLS");
+         cout << "\n---------------------------------\n";
+        cout << "|\tSALES SECTION\t\t|";
+        cout << "\n---------------------------------\n\n";
         double totalSales = 0;
         int totalProducts = 0;
 
@@ -171,7 +180,9 @@ public:
         while (true)
         {
             system("cls");
-            cout << "\t\tFri-Chicks\n";
+            cout << "\n---------------------------------\n";
+            cout << "|\tFri-Chicks\t\t|";
+            cout << "\n---------------------------------\n\n";
             cout << "............ Menu Management ...........\n\n";
 
             cout << "1. See Menu \n2. Add Category \n3. Delete Category \n4. Add New Items in Menu \n5. Delete Items from Menu \n6. Go Back" << endl;
@@ -210,7 +221,9 @@ public:
         while (true)
         {
             system("cls");
-            cout << "\t\tFri-Chicks\n";
+            cout << "\n---------------------------------\n";
+            cout << "|\tFri-Chicks\t\t|";
+            cout << "\n---------------------------------\n\n";
             cout << "........................................\n\n";
 
             cout << "1. Manage Menu \n2. Take Orders \n3. Billing History \n4. Total Sales \n5. Exit" << endl;
@@ -235,6 +248,9 @@ public:
                 pressToContinue();
                 break;
             case '5':
+
+                cout << "\n\nExiting ----------------------\n";
+                pressToContinue();
                 return;
             default:
                 break;
