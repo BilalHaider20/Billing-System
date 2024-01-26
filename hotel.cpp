@@ -58,7 +58,7 @@ public:
     {
         if(menu.get_CategoriesList()->getSize()==0)
         {
-            cout << "Menu is Empty. Please add Categories and items in menu " << endl;
+            cout << "Menu is Empty ! \nPlease add Categories and items in menu " << endl;
             pressToContinue();
             return;
         }
@@ -66,9 +66,14 @@ public:
         ProductsList *temp;
         menu.Display_menu();
         cout << "------------------------------" << endl;
+        cout << "\nCostumer Name ";
+        cin.ignore();
+        cin.clear();
+        string name;
+        getline(cin,name);
         while (true)
         {
-            cout << "What do you want to order ? " << endl;
+            cout << name<<" What do you want to order ? " << endl;
             cout << "\nSelect Category: ";
             Node<ProductsList *> *curr = categoriesList->getHead();
 
@@ -79,16 +84,17 @@ public:
             }
             int c;
             cin >> c;
+            if(c>menu.get_CategoriesList()->getSize() || c<menu.get_CategoriesList()->getSize())
+            continue;
             temp = categoriesList->get_Category(c);
+            break;
         }
-
+        system("CLS");
         temp->print();
-        cout << " -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --" << endl;
+        cout << "--------------------------------------------" << endl;
         // product selection code will be here
-
-        cout << "\nCostumer Name ";
-        string name;
-        getline(cin,name);
+        
+        
 
         // cart->addProduct(product to be added in cart);
         double bill = GenerateBill(cart);
