@@ -135,7 +135,11 @@ public:
         }
 
         double bill = GenerateBill(cart);
-        orderStack.push(Order(name, invoiceNumber++, bill, cart));
+        Order newOrder(name, invoiceNumber++, bill, cart);
+        orderStack.push(newOrder);
+        newOrder.print();
+        pressToContinue();
+
         delete cart;
         return;
     }
