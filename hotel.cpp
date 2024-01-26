@@ -56,7 +56,7 @@ public:
         while (!tempStack.empty())
         {
             Order currentOrder = tempStack.top();
-            currentOrder.print();
+            currentOrder.print2();
             tempStack.pop();
         }
         pressToContinue();
