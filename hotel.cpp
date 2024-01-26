@@ -125,7 +125,6 @@ public:
         double bill = GenerateBill(cart);
         Order newOrder(name, invoiceNumber++, bill, cart);
         orderStack.push(newOrder);
-        system("cls");
         newOrder.print();
         pressToContinue();
 
