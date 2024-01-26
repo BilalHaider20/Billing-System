@@ -52,6 +52,7 @@ public:
     void print()
     {
         system("CLS");
+        cout << "---------------------------------------------\n";
         cout << "\nInvoice Number: " << getInvoiceNumber() << endl;
         cout << "Customer Name: " << getCustomerName() << endl;
 
@@ -65,6 +66,7 @@ public:
 
         cout << "\nTotal Items: " << getTotalItems() << endl;
         cout << "Total Bill: Rs." << getBill() << endl;
+        cout << "-----------------------------------------\n";
     }
 };
 

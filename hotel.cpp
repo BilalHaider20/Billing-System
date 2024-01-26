@@ -152,12 +152,14 @@ public:
         double bill = GenerateBill(cart);
         Order newOrder(name, invoiceNumber++, bill, cart);
         orderStack.push(newOrder);
+        system("cls");
         newOrder.print();
         pressToContinue();
 
         delete cart;
         return;
     }
+
     void Compute_Total_Sales()
     {
         double totalSales = 0;
