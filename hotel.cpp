@@ -2,7 +2,7 @@
 using namespace std;
 #include "Menu.cpp"
 #include <stack>
-#include <string.h>
+#include <string>
 #include "order.h"
 class Hotel
 {
@@ -56,10 +56,16 @@ public:
 
     void Take_order()
     {
+        if(menu.get_CategoriesList()->getSize()==0)
+        {
+            cout << "Menu is Empty. Please add Categories and items in menu " << endl;
+            pressToContinue();
+            return;
+        }
         ProductsList *cart;
         ProductsList *temp;
-
-        // display menu
+        menu.Display_menu();
+        cout << "------------------------------" << endl;
         while (true)
         {
             cout << "What do you want to order ? " << endl;
@@ -82,7 +88,7 @@ public:
 
         cout << "\nCostumer Name ";
         string name;
-        // getline(cin,name);
+        getline(cin,name);
 
         // cart->addProduct(product to be added in cart);
         double bill = GenerateBill(cart);
@@ -137,7 +143,7 @@ public:
             cout << "\t\tFri-Chicks\n";
             cout << "........................................\n\n";
 
-            cout << "1. Manage Menu \n2. Generate Bill \n3. Billing History \n4. Total Sales \n5. Exit" << endl;
+            cout << "1. Manage Menu \n2. Take Orders \n3. Billing History \n4. Total Sales \n5. Exit" << endl;
             cout << "\nEnter the corresponding number ";
 
             char input;
@@ -149,6 +155,7 @@ public:
                 menuManager();
                 break;
             case '2':
+                Take_order();
                 break;
             case '3':
                 break;
@@ -160,5 +167,12 @@ public:
                 break;
             }
         }
+    }
+    void pressToContinue()
+    {
+        cout << "\n\nPress to continue...\n\n";
+        getch();
+        char c;
+        cin.get(c);
     }
 };
