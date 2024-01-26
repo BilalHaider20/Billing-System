@@ -68,7 +68,7 @@ public:
         if (size == 0 || ind > size)
             return false;
 
-        if (size == ind == 1)
+        if ((size==1)&& (ind==1))
         {
             Node<ProductsList *> *curr = head;
             delete curr;

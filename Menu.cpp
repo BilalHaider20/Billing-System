@@ -17,7 +17,7 @@ public:
         cout << ".............. Add Category .............\n\n";
         cout << "category Name: ";
         cin.ignore();
-        cin.clear();
+        // cin.clear();
         getline(cin,category);
         categoriesList->addCategory(category);
         cout << "\nCategory added successfully\n";
@@ -85,6 +85,7 @@ public:
             temp = categoriesList->get_Category(ind);
 
             cout << "\nProduct Name: ";
+            cin.ignore();
             getline(cin,name);
 
             cout << "Product Price: ";
