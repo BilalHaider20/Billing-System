@@ -15,7 +15,7 @@ public:
         this->product_name = "";
         this->product_price = 0;
     }
-    Product(int sr, string name, int price)
+    Product(string name, int price)
     {
         this->product_name = name;
         this->product_price = price;

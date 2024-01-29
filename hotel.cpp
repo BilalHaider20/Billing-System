@@ -16,7 +16,7 @@ private:
     string HISTORY = "history";
     string name;
     stack<Order> orderStack;
-    int invoiceNumber = 10000000;
+    int invoiceNumber = 10000;
     Menu menu;
     double totalSales = 0;
     int totalProductsSold = 0;
@@ -34,45 +34,75 @@ public:
 
     void saveHistory()
     {
-        string name;
-        int invNumber;
-        string dateTime;
-        double bill;
-        int totalItems;
+        cout << "1\n";
         ofstream outputFile(HISTORY);
 
+        cout << "2\n";
         if (!outputFile.is_open())
         {
             cerr << "\nError opening file!" << endl;
             return;
         }
         stack<Order> tempStack = orderStack;
+        cout << "3\n";
         while (!tempStack.empty())
         {
+            cout << "4\n";
             Order currentOrder = tempStack.top();
-            bill = currentOrder.getBill();
-            name = currentOrder.getCustomerName();
-            invNumber = currentOrder.getInvoiceNumber();
-            totalItems = currentOrder.getTotalItems();
-            dateTime = currentOrder.getDateTime();
-            string purchasedItems = "";
-            ProductsList *prods = currentOrder.GetPurchasedItems();
-            for (int i = 1; i <= prods->getSize(); i++)
+            double bill = currentOrder.getBill();
+            string name = currentOrder.getCustomerName();
+            int invNumber = currentOrder.getInvoiceNumber();
+            int totalItems = currentOrder.getTotalItems();
+            string dateTime = currentOrder.getDateTime();
+            ProductsList *p = new ProductsList();
+            p = currentOrder.GetPurchasedItems();
+            string prods = "";
+            cout << "5\n";
+
+            Node<Product> *curr = p->getHead();
+            while (curr != NULL)
             {
-                for (char &c : prods->getProduct(i).getProduct_name())
+                cout << "6\n";
+                string Pname = curr->getData().getProduct_name();
+                for (char &c : Pname)
                     if (c == ' ')
                         c = '_';
-                purchasedItems += (prods->getCategory() + "%" + prods->getProduct(i).getProduct_name() + "*");
+
+                cout << "7\n";
+                prods += (Pname + "*" + to_string(curr->getData().getProduct_price()) + "-");
+                cout << "8\n";
+                curr = curr->getNextPtr();
+                cout << "9\n";
             }
+
+            cout << "10\n";
+            for (char &c : name)
+            {
+                if (c == ' ')
+                    c = '_';
+            }
+            for (char &c : dateTime)
+            {
+                if (c == ' ')
+                    c = '_';
+            }
+
+            cout << "11\n";
+            outputFile << name << " " << invNumber << " " << bill << " " << totalItems << " " << totalSales << " " << totalProductsSold << " " << prods << " " << invoiceNumber << " " << dateTime << " " << endl;
+            cout << "12\n";
             tempStack.pop();
-            outputFile << name << " " << invNumber << " " << dateTime << " " << bill << " " << totalItems << " " << totalSales << " " << totalProductsSold << " " << purchasedItems << endl;
+            cout << "13\n";
         }
         outputFile.close();
+        cout << "14\n";
     }
 
     void loadHistory()
     {
         string name;
+        string prodName;
+        string tempPrice;
+        int prodPrice;
         int invNumber;
         string dateTime;
         double bill;
@@ -92,39 +122,49 @@ public:
             orderStack.pop();
         }
 
-        while (inputFile >> name >> invNumber >> dateTime >> bill >> totalItems >> totalSales >> totalProductsSold >> prods)
+        while (inputFile >> name >> invNumber >> bill >> totalItems >> totalSales >> totalProductsSold >> prods >> invoiceNumber >> dateTime)
         {
             this->totalSales = totalSales;
             this->totalProductsSold = totalProductsSold;
-
-            for (char &c : prods)
-                if (c == '*')
+            this->invoiceNumber = invoiceNumber;
+            string tempWord;
+            for (char &c : name)
+                if (c == '_')
+                    c = ' ';
+            for (char &c : dateTime)
+                if (c == '_')
                     c = ' ';
 
-            string word = "";
-            string catg = "";
-            string prod = "";
-
-            for (char &c : prods)
+            for (char c : prods)
             {
-                if (c != ' ')
-                    word += c;
+                if (c != '-' && c != '*')
+                {
+                    tempWord += c;
+                }
                 else
                 {
-                    for (char &c : word)
-                        if (c != '%')
+                    if (!tempWord.empty())
+                    {
+                        if (c == '*')
                         {
-                            catg += c;
-                            c = ' ';
+                            prodName = tempWord;
+                            for (char &c : prodName)
+                                if (c == '_')
+                                    c = ' ';
                         }
-                    for (char &c : word)
-                        if (c != ' ' && c != '%')
-                            prod += c;
-                    productsPurchased->addProduct(menu.get_CategoriesList()->get_Category(catg)->getProduct(prod));
+                        else if (c == '-')
+                        {
+                            prodPrice = std::stod(tempWord);
+                            productsPurchased->addProduct(Product(prodName, prodPrice));
+                        }
+                        tempWord.clear();
+                    }
                 }
             }
-            orderStack.push(Order(name, invNumber, bill, productsPurchased));
+            orderStack.push(Order(name, invNumber, bill, productsPurchased, dateTime));
         }
+
+        inputFile.close();
     }
 
     int GenerateBill(ProductsList *cart)
@@ -254,9 +294,11 @@ public:
             return;
         }
         double bill = GenerateBill(cart);
-        Order newOrder(name, invoiceNumber++, bill, cart);
+        Order newOrder(name, ++invoiceNumber, bill, cart);
         orderStack.push(newOrder);
         newOrder.print();
+        Compute_Total_Sales();
+        saveHistory();
         pressToContinue();
 
         delete cart;
@@ -266,15 +308,23 @@ public:
     void Compute_Total_Sales()
     {
         stack<Order> tempStack = orderStack;
+        int totalsales = 0;
+        int totalpsold = 0;
         while (!tempStack.empty())
         {
             Order obj = tempStack.top();
-            totalSales += obj.getBill();
-            totalProductsSold += obj.getTotalItems();
+            totalsales += obj.getBill();
+            totalpsold += obj.getTotalItems();
             tempStack.pop();
         }
+        totalSales = totalsales;
+        totalProductsSold = totalpsold;
+    }
+
+    void View_Total_Sales()
+    {
         system("cls");
-        cout << "\t\tFri-Chicks\n";
+        cout << "\t\tFri-Chi cks\n";
         cout << "............... Total Sales ..............\n\n";
         cout << "Total Sales: Rs." << totalSales << endl;
         cout << "Total Number of Products Sold: " << totalProductsSold << endl;
@@ -323,7 +373,7 @@ public:
     void MainMenu()
     {
         menu.loadData();
-        // loadHistory();
+        loadHistory();
         while (true)
         {
             system("cls");
@@ -343,17 +393,16 @@ public:
                 break;
             case '2':
                 TakeOrder();
-                // saveHistory();
                 break;
             case '3':
                 BillingHistory();
                 break;
             case '4':
-                Compute_Total_Sales();
+                View_Total_Sales();
                 break;
             case '5':
                 menu.loadData();
-                // loadHistory();
+                loadHistory();
                 system("cls");
                 cout << "\t\tFri-Chicks\n";
                 cout << "........................................\n\n";

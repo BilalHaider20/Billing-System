@@ -26,7 +26,21 @@ public:
         this->PurchasedItems = PurchasedItems;
         this->totalItems = PurchasedItems->getSize();
         auto now = chrono::system_clock::to_time_t(chrono::system_clock::now());
-        dateTime = ctime(&now);
+        string tempDateTime = ctime(&now);
+        if (!tempDateTime.empty())
+        {
+            dateTime = tempDateTime.substr(0, tempDateTime.size() - 1);
+        }
+    }
+
+    Order(string customerName, int inv, double bill, ProductsList *PurchasedItems, string dateTime)
+    {
+        this->customerName = customerName;
+        this->invoiceNumber = inv;
+        this->bill = bill;
+        this->PurchasedItems = PurchasedItems;
+        this->totalItems = PurchasedItems->getSize();
+        this->dateTime = dateTime;
     }
 
     string getCustomerName() const

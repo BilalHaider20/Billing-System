@@ -85,7 +85,7 @@ public:
     }
     void addProduct(string name, int price)
     {
-        Node<Product> *N = new Node<Product>(Product(size + 1, name, price));
+        Node<Product> *N = new Node<Product>(Product(name, price));
         if (head == NULL)
         {
             N->setNextPtr(nullptr);
