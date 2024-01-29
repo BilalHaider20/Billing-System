@@ -150,7 +150,6 @@ public:
             orderStack.push(Order(name, invNumber, bill, totalItems, productsPurchased, dateTime));
         }
 
-        delete productsPurchased;
         inputFile.close();
     }
 
