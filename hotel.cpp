@@ -34,20 +34,16 @@ public:
 
     void saveHistory()
     {
-        cout << "1\n";
         ofstream outputFile(HISTORY);
 
-        cout << "2\n";
         if (!outputFile.is_open())
         {
             cerr << "\nError opening file!" << endl;
             return;
         }
         stack<Order> tempStack = orderStack;
-        cout << "3\n";
         while (!tempStack.empty())
         {
-            cout << "4\n";
             Order currentOrder = tempStack.top();
             double bill = currentOrder.getBill();
             string name = currentOrder.getCustomerName();
@@ -57,25 +53,19 @@ public:
             ProductsList *p = new ProductsList();
             p = currentOrder.GetPurchasedItems();
             string prods = "";
-            cout << "5\n";
 
             Node<Product> *curr = p->getHead();
             while (curr != NULL)
             {
-                cout << "6\n";
                 string Pname = curr->getData().getProduct_name();
                 for (char &c : Pname)
                     if (c == ' ')
                         c = '_';
 
-                cout << "7\n";
                 prods += (Pname + "*" + to_string(curr->getData().getProduct_price()) + "-");
-                cout << "8\n";
                 curr = curr->getNextPtr();
-                cout << "9\n";
             }
 
-            cout << "10\n";
             for (char &c : name)
             {
                 if (c == ' ')
@@ -87,14 +77,10 @@ public:
                     c = '_';
             }
 
-            cout << "11\n";
             outputFile << name << " " << invNumber << " " << bill << " " << totalItems << " " << totalSales << " " << totalProductsSold << " " << prods << " " << invoiceNumber << " " << dateTime << " " << endl;
-            cout << "12\n";
             tempStack.pop();
-            cout << "13\n";
         }
         outputFile.close();
-        cout << "14\n";
     }
 
     void loadHistory()
