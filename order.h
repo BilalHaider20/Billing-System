@@ -54,40 +54,52 @@ public:
         return totalItems;
     }
 
+    string getDateTime() const
+    {
+        return dateTime;
+    }
+
     void print()
     {
         system("CLS");
         cout << "\t\tFri-Chicks\n";
         cout << "................. Invoice ................\n\n";
-        cout << "---------------------------------------------\n";
+        cout << "------------------------------------------\n";
         cout << "\nInvoice Number: " << getInvoiceNumber() << endl;
         cout << "Customer Name: " << getCustomerName() << endl;
         cout << "Date and Time: " << dateTime;
 
-        cout << "\nItems Purchased:\n";
+        cout << "\n\nItems Purchased\n";
         ProductsList *purchasedItems = GetPurchasedItems();
+
+        cout << "------------------------------------------\n";
+        cout << left << setw(5) << "Sr." << setw(25) << "Name"
+             << "Price" << endl;
+        cout << "------------------------------------------\n";
 
         for (int i = 1; i <= purchasedItems->getSize(); ++i)
         {
             Product product = purchasedItems->getProduct(i);
-            cout << i << ". " << product.getProduct_name() << "   -   Rs." << product.getProduct_price() << endl;
+            cout << setw(5) << i << setw(25) << product.getProduct_name() << "Rs. " << product.getProduct_price() << endl;
         }
+        cout << "------------------------------------------\n";
 
-        cout << "\nTotal Items Purchased: " << getTotalItems() << endl;
-        cout << "Total Bill: Rs." << getBill() << endl;
-        cout << "-----------------------------------------\n";
+        cout << setw(30) << "Total Bill:"
+             << "Rs. " << getBill() << endl;
+        cout << setw(30) << "Total Items Purchased: " << getTotalItems() << endl;
+        cout << "------------------------------------------\n";
     }
 
     void print2()
     {
-        cout << "-----------------------------------------\n";
+        cout << "------------------------------------------\n";
         cout << "Invoice Number: " << getInvoiceNumber() << endl;
         cout << "Customer Name: " << getCustomerName() << endl;
         cout << "Date and Time: " << dateTime;
 
         cout << "\nTotal Items Purchased: " << getTotalItems() << endl;
         cout << "Total Bill: Rs." << getBill() << endl;
-        cout << "-----------------------------------------\n";
+        cout << "------------------------------------------\n";
     }
 };
 

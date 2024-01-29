@@ -2,13 +2,92 @@
 #include <conio.h>
 #include "categories.h"
 #include <string>
+#include <cctype>
+#include <fstream>
 using namespace std;
+
 class Menu
 {
 private:
-    Categories *categoriesList = new Categories();
+    string MENU = "menu_data";
+    Categories *categoriesList = new Categories;
 
 public:
+    void saveData()
+    {
+        ofstream outputFile(MENU);
+
+        if (!outputFile.is_open())
+        {
+            cerr << "\nError opening file!" << endl;
+            return;
+        }
+
+        for (int i = 1; i <= categoriesList->getSize(); i++)
+        {
+            ProductsList *temp = categoriesList->get_Category(i);
+            for (int j = 1; j <= temp->getSize(); j++)
+            {
+                string categ = temp->getCategory();
+                string name = temp->getProduct(j).getProduct_name();
+                for (int m = 0; m < categ.size(); m++)
+                {
+                    if (categ[m] == ' ')
+                        categ[m] = '_';
+                }
+                for (int n = 0; n < name.size(); n++)
+                {
+                    if (name[n] == ' ')
+                        name[n] = '_';
+                }
+                outputFile << categ << " " << name << " " << temp->getProduct(j).getProduct_price() << " " << endl;
+            }
+        }
+        outputFile.close();
+    }
+
+    void loadData()
+    {
+        string categName;
+        string prodName;
+        int prodPrice;
+        ifstream inputFile(MENU);
+        categoriesList->emptyMenu();
+
+        if (!inputFile.is_open())
+        {
+            cerr << "\nError opening file for reading." << endl;
+            return;
+        }
+
+        while (inputFile >> categName >> prodName >> prodPrice)
+        {
+            for (char &c : categName)
+            {
+                if (c == '_')
+                    c = ' ';
+                c = toupper(c);
+            }
+            for (char &c : prodName)
+            {
+                if (c == '_')
+                    c = ' ';
+            }
+
+            if (!categoriesList->categoryExists(categName))
+            {
+                categoriesList->addCategory(categName);
+            }
+
+            ProductsList *temp = categoriesList->get_Category(categName);
+
+            temp->addProduct(prodName, prodPrice);
+        }
+
+        inputFile.close();
+        inputFile.clear();
+    }
+
     void add_Category()
     {
         string category;
@@ -18,9 +97,14 @@ public:
         cout << "category Name: ";
         cin.ignore();
         getline(cin, category);
+        for (char &c : category)
+        {
+            c = toupper(c);
+        }
         categoriesList->addCategory(category);
-        cout << "\nCategory added successfully\n";
+        cout << "\nCategory " << category << " Added Successfully\n";
         pressToContinue();
+        saveData();
         return;
     }
 
@@ -53,8 +137,9 @@ public:
             pressToContinue();
             return;
         }
+        cout << "\nCategory " << categoriesList->get_Category(c)->getCategory() << " Deleted Successfuly!\n";
         categoriesList->deleteCategory(c);
-        cout << "\nCategory Deleted Successfuly!\n";
+        saveData();
         pressToContinue();
     }
 
@@ -89,6 +174,7 @@ public:
                 cout << i << ". " << curr->getData()->getCategory() << endl;
                 curr = curr->getNextPtr();
             }
+
             int ind;
             cin >> ind;
 
@@ -103,15 +189,16 @@ public:
             cin.ignore();
             cout << "\nProduct Name: ";
             getline(cin, name);
-
             cout << "Product Price: ";
             cin >> price;
-            int sr = temp->getSize() + 1;
-            temp->addProduct(Product(sr, name, price));
+            temp->addProduct(name, price);
 
-            cout << "\nItem Added Successfuly!\n";
+            cout << "\n"
+                 << name << " Added Successfuly!\n";
+            saveData();
             cout << "\nWant to add another product? (y/n) ";
             cin >> c;
+
             switch (c)
             {
             case 'y':
@@ -143,6 +230,7 @@ public:
                 pressToContinue();
                 return;
             }
+
             cout << "\nSelect Category: \n";
             Node<ProductsList *> *curr = categoriesList->getHead();
 
@@ -151,9 +239,17 @@ public:
                 cout << i << ". " << curr->getData()->getCategory() << endl;
                 curr = curr->getNextPtr();
             }
+
             int ind;
             cin >> ind;
+            if (ind > categoriesList->getSize() || ind < 1)
+            {
+                cout << "\nInvalid Input Entered\n";
+                pressToContinue();
+                return;
+            }
             temp = categoriesList->get_Category(ind);
+
             if (temp->getSize() == 0)
             {
                 cout << "\nList is empty\n";
@@ -165,11 +261,19 @@ public:
 
             cin >> ind;
 
-            if (!temp->deleteProduct(ind))
-                cout << "\nItem Not Found!\n";
+            if (ind > temp->getSize())
+            {
+                cout << "\nInvalid Input Entered!\n";
+                pressToContinue();
+                return;
+            }
             else
-                cout << "\nItem Deleted Successfuly!\n";
-
+            {
+                cout << "\n"
+                     << temp->getProduct(ind).getProduct_name() << " Deleted Successfuly!\n";
+                temp->deleteProduct(ind);
+                saveData();
+            }
             cout << "\nWant to delete another product? (y/n) ";
             cin >> c;
             switch (c)

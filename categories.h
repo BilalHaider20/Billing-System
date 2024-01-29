@@ -25,6 +25,23 @@ public:
         head = nullptr;
         tail = nullptr;
     }
+    ~Categories()
+    {
+        emptyMenu();
+    }
+
+    void emptyMenu()
+    {
+        while (head != nullptr)
+        {
+            Node<ProductsList *> *temp = head;
+            head = head->getNextPtr();
+            delete temp->getData();
+            delete temp;
+            size--;
+        }
+        tail = nullptr;
+    }
 
     int getSize() const
     {
@@ -42,6 +59,20 @@ public:
             curr = curr->getNextPtr();
         }
         return curr->getData();
+    }
+
+    ProductsList *get_Category(string c)
+    {
+        Node<ProductsList *> *curr = head;
+        while (curr != nullptr)
+        {
+            if (curr->getData()->getCategory() == c)
+            {
+                return curr->getData();
+            }
+            curr = curr->getNextPtr();
+        }
+        return nullptr;
     }
 
     void addCategory(string category)
@@ -99,6 +130,20 @@ public:
         size--;
         delete current;
         return true;
+    }
+
+    bool categoryExists(string category)
+    {
+        Node<ProductsList *> *curr = head;
+        while (curr != nullptr)
+        {
+            if (curr->getData()->getCategory() == category)
+            {
+                return true;
+            }
+            curr = curr->getNextPtr();
+        }
+        return false;
     }
 
     void Print()

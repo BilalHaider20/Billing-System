@@ -2,6 +2,7 @@
 #include <stack>
 #include <string>
 #include <conio.h>
+#include <fstream>
 
 #include "Menu.cpp"
 #include "order.h"
@@ -12,10 +13,13 @@ using namespace std;
 class Hotel
 {
 private:
+    string HISTORY = "history";
     string name;
     stack<Order> orderStack;
     int invoiceNumber = 10000000;
     Menu menu;
+    double totalSales = 0;
+    int totalProductsSold = 0;
 
 public:
     Hotel()
@@ -26,6 +30,101 @@ public:
     Hotel(string name)
     {
         this->name = name;
+    }
+
+    void saveHistory()
+    {
+        string name;
+        int invNumber;
+        string dateTime;
+        double bill;
+        int totalItems;
+        ofstream outputFile(HISTORY);
+
+        if (!outputFile.is_open())
+        {
+            cerr << "\nError opening file!" << endl;
+            return;
+        }
+        stack<Order> tempStack = orderStack;
+        while (!tempStack.empty())
+        {
+            Order currentOrder = tempStack.top();
+            bill = currentOrder.getBill();
+            name = currentOrder.getCustomerName();
+            invNumber = currentOrder.getInvoiceNumber();
+            totalItems = currentOrder.getTotalItems();
+            dateTime = currentOrder.getDateTime();
+            string purchasedItems = "";
+            ProductsList *prods = currentOrder.GetPurchasedItems();
+            for (int i = 1; i <= prods->getSize(); i++)
+            {
+                for (char &c : prods->getProduct(i).getProduct_name())
+                    if (c == ' ')
+                        c = '_';
+                purchasedItems += (prods->getCategory() + "%" + prods->getProduct(i).getProduct_name() + "*");
+            }
+            tempStack.pop();
+            outputFile << name << " " << invNumber << " " << dateTime << " " << bill << " " << totalItems << " " << totalSales << " " << totalProductsSold << " " << purchasedItems << endl;
+        }
+        outputFile.close();
+    }
+
+    void loadHistory()
+    {
+        string name;
+        int invNumber;
+        string dateTime;
+        double bill;
+        int totalItems;
+        string prods;
+        ProductsList *productsPurchased = new ProductsList();
+        ifstream inputFile(HISTORY);
+
+        if (!inputFile.is_open())
+        {
+            cerr << "\nError opening file for reading." << endl;
+            return;
+        }
+
+        while (!orderStack.empty())
+        {
+            orderStack.pop();
+        }
+
+        while (inputFile >> name >> invNumber >> dateTime >> bill >> totalItems >> totalSales >> totalProductsSold >> prods)
+        {
+            this->totalSales = totalSales;
+            this->totalProductsSold = totalProductsSold;
+
+            for (char &c : prods)
+                if (c == '*')
+                    c = ' ';
+
+            string word = "";
+            string catg = "";
+            string prod = "";
+
+            for (char &c : prods)
+            {
+                if (c != ' ')
+                    word += c;
+                else
+                {
+                    for (char &c : word)
+                        if (c != '%')
+                        {
+                            catg += c;
+                            c = ' ';
+                        }
+                    for (char &c : word)
+                        if (c != ' ' && c != '%')
+                            prod += c;
+                    productsPurchased->addProduct(menu.get_CategoriesList()->get_Category(catg)->getProduct(prod));
+                }
+            }
+            orderStack.push(Order(name, invNumber, bill, productsPurchased));
+        }
     }
 
     int GenerateBill(ProductsList *cart)
@@ -89,11 +188,11 @@ public:
         {
             menu.Display_menu();
 
-            cout << "-----------------------------------------\n\n";
+            cout << "========================================================\n\n";
 
             cout << "Hi " << name << "! What do you want to order? \n(Enter \"x\" when done) " << endl;
 
-            cout << "\nSelect Category: \n";
+            cout << "\n\nSelect Category:\n\n";
 
             Node<ProductsList *> *curr = menu.get_CategoriesList()->getHead();
 
@@ -103,20 +202,21 @@ public:
                 curr = curr->getNextPtr();
             }
 
-            char c;
-            cin >> c;
+            cout << "\nEnter the corresponding number: ";
+            string input;
+            cin >> input;
 
-            if (c == 'x')
+            if (input == "x" || input == "X")
                 break;
-
-            if (c - 48 > menu.get_CategoriesList()->getSize() || c - 48 < 1)
+            int c = stoi(input);
+            if (c > menu.get_CategoriesList()->getSize() || c < 1)
             {
                 cout << "\nInvalid Input\n";
                 pressToContinue();
                 continue;
             }
 
-            temp = menu.get_CategoriesList()->get_Category(c - 48);
+            temp = menu.get_CategoriesList()->get_Category(c);
 
             while (true)
             {
@@ -127,20 +227,22 @@ public:
                 temp->print();
                 cout << "--------------------------------------------" << endl;
                 cout << "Enter the serial number to add to Cart (Enter \"x\" when done): ";
-                char input;
+                string input;
                 cin >> input;
-                if (input == 'x')
+                if (input == "x" || input == "X")
                     break;
-                if (input - 48 > temp->getSize() || input - 48 < 1)
+                int c = stoi(input);
+                if (c > temp->getSize() || c < 1)
                 {
                     cout << "Invalid input!\nPlease enter a correct serial number" << endl;
                     pressToContinue();
                     continue;
                 }
 
-                Product p = temp->getProduct(input - 48);
+                Product p = temp->getProduct(c);
                 cart->addProduct(p);
-                cout << "\nAdded to Cart Successfully\n";
+                cout << "\n"
+                     << p.getProduct_name() << " Added to Cart Successfully\n";
                 pressToContinue();
             }
         }
@@ -163,22 +265,19 @@ public:
 
     void Compute_Total_Sales()
     {
-        double totalSales = 0;
-        int totalProducts = 0;
-
         stack<Order> tempStack = orderStack;
         while (!tempStack.empty())
         {
             Order obj = tempStack.top();
             totalSales += obj.getBill();
-            totalProducts += obj.getTotalItems();
+            totalProductsSold += obj.getTotalItems();
             tempStack.pop();
         }
         system("cls");
         cout << "\t\tFri-Chicks\n";
         cout << "............... Total Sales ..............\n\n";
         cout << "Total Sales: Rs." << totalSales << endl;
-        cout << "Total Number of Products Sold: " << totalProducts << endl;
+        cout << "Total Number of Products Sold: " << totalProductsSold << endl;
         pressToContinue();
     }
 
@@ -223,13 +322,15 @@ public:
 
     void MainMenu()
     {
+        menu.loadData();
+        loadHistory();
         while (true)
         {
             system("cls");
             cout << "\t\tFri-Chicks\n";
             cout << "........................................\n\n";
 
-            cout << "1. Manage Menu \n2. Take Orders \n3. Billing History \n4. Total Sales \n5. Exit" << endl;
+            cout << "1. Manage Menu \n2. Take Orders \n3. Billing History \n4. Total Sales \n5. Refresh Data \n6. Exit" << endl;
             cout << "\nEnter the corresponding number: ";
 
             char input;
@@ -242,6 +343,7 @@ public:
                 break;
             case '2':
                 TakeOrder();
+                saveHistory();
                 break;
             case '3':
                 BillingHistory();
@@ -250,6 +352,16 @@ public:
                 Compute_Total_Sales();
                 break;
             case '5':
+                menu.loadData();
+                loadHistory();
+                system("cls");
+                cout << "\t\tFri-Chicks\n";
+                cout << "........................................\n\n";
+                cout << "\nData Loaded Successfully.";
+                pressToContinue();
+                break;
+            case '6':
+                delete menu.get_CategoriesList();
                 return;
             default:
                 break;

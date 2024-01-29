@@ -2,6 +2,7 @@
 #define PRODUCTSLIST_H
 
 #include <iostream>
+#include <iomanip>
 #include "Node.h"
 #include "Product.h"
 using namespace std;
@@ -36,6 +37,16 @@ public:
         tail = nullptr;
     }
 
+    ~ProductsList()
+    {
+        while (head != nullptr)
+        {
+            Node<Product> *temp = head;
+            head = head->getNextPtr();
+            delete temp;
+        }
+    }
+
     int getSize() const
     {
         return size;
@@ -58,6 +69,37 @@ public:
         }
         return curr->getData();
     }
+    Product getProduct(string prod)
+    {
+        Node<Product> *curr = head;
+        while (curr != nullptr)
+        {
+            if (curr->getData().getProduct_name() == prod)
+            {
+                return curr->getData();
+            }
+            curr = curr->getNextPtr();
+        }
+
+        return Product();
+    }
+    void addProduct(string name, int price)
+    {
+        Node<Product> *N = new Node<Product>(Product(size + 1, name, price));
+        if (head == NULL)
+        {
+            N->setNextPtr(nullptr);
+            head = N;
+            tail = N;
+            size++;
+            return;
+        }
+
+        tail->setNextPtr(N);
+        tail = tail->getNextPtr();
+        size++;
+        return;
+    }
 
     void addProduct(Product p)
     {
@@ -79,46 +121,61 @@ public:
 
     bool deleteProduct(int ind)
     {
-        if (size == 0)
+        if (size == 0 || ind < 1 || ind > size)
             return false;
-        if (ind == head->getData().getSr())
+
+        if (ind == 1)
         {
             Node<Product> *current = head;
-            head = nullptr;
-            tail = nullptr;
+            head = head->getNextPtr();
             delete current;
             size--;
+            if (size == 0)
+                tail = nullptr;
             return true;
         }
 
         Node<Product> *current = head;
         Node<Product> *previous;
-        while (current->getNextPtr() != NULL)
+
+        for (int i = 1; i < ind; i++)
         {
             previous = current;
             current = current->getNextPtr();
-            if (ind == (current->getData().getSr()))
-            {
-                previous->setNextPtr(current->getNextPtr());
-                size--;
-                delete current;
-                return true;
-            }
         }
-        return false;
+        previous->setNextPtr(current->getNextPtr());
+        if (current == tail)
+            tail = previous;
+        delete current;
+        size--;
+        return true;
     }
 
     void print()
     {
         Node<Product> *curr = head;
+
+        const int srWidth = 6;
+        const int nameWidth = 25;
+        const int priceWidth = 10;
+
         cout << "\n-----------------------------------------\n "
-             << category << "\t\t\t\t\t\n-----------------------------------------\n";
-        cout << "Sr. \tName\t\t\tPrice" << endl;
+             << category << "\n-----------------------------------------\n";
+        cout << setw(srWidth) << "Sr." << setw(nameWidth) << "Product Name"
+             << "Price\n";
+        cout << "-----------------------------------------\n";
+
+        int i = 1;
         while (curr != nullptr)
         {
-            cout << curr->getData().getSr() << "\t" << curr->getData().getProduct_name() << "\t\t\tRs." << curr->getData().getProduct_price() << endl;
+            cout << left << setw(srWidth) << i
+                 << left << setw(nameWidth) << curr->getData().getProduct_name()
+                 << left << "Rs. " << curr->getData().getProduct_price() << endl;
+
             curr = curr->getNextPtr();
+            i++;
         }
+
         cout << "\n\n\n";
     }
 };
