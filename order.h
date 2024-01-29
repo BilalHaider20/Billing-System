@@ -33,13 +33,13 @@ public:
         }
     }
 
-    Order(string customerName, int inv, double bill, ProductsList *PurchasedItems, string dateTime)
+    Order(string customerName, int inv, double bill, int totalItems, ProductsList *PurchasedItems, string dateTime)
     {
         this->customerName = customerName;
         this->invoiceNumber = inv;
         this->bill = bill;
         this->PurchasedItems = PurchasedItems;
-        this->totalItems = PurchasedItems->getSize();
+        this->totalItems = totalItems;
         this->dateTime = dateTime;
     }
 

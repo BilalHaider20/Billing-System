@@ -141,15 +141,16 @@ public:
                         else if (c == '-')
                         {
                             prodPrice = std::stod(tempWord);
-                            productsPurchased->addProduct(Product(prodName, prodPrice));
+                            productsPurchased->addProduct(prodName, prodPrice);
                         }
                         tempWord.clear();
                     }
                 }
             }
-            orderStack.push(Order(name, invNumber, bill, productsPurchased, dateTime));
+            orderStack.push(Order(name, invNumber, bill, totalItems, productsPurchased, dateTime));
         }
 
+        delete productsPurchased;
         inputFile.close();
     }
 
