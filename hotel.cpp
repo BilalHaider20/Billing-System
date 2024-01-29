@@ -323,7 +323,7 @@ public:
     void MainMenu()
     {
         menu.loadData();
-        loadHistory();
+        // loadHistory();
         while (true)
         {
             system("cls");
@@ -343,7 +343,7 @@ public:
                 break;
             case '2':
                 TakeOrder();
-                saveHistory();
+                // saveHistory();
                 break;
             case '3':
                 BillingHistory();
@@ -353,7 +353,7 @@ public:
                 break;
             case '5':
                 menu.loadData();
-                loadHistory();
+                // loadHistory();
                 system("cls");
                 cout << "\t\tFri-Chicks\n";
                 cout << "........................................\n\n";
