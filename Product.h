@@ -7,7 +7,7 @@ class Product
 {
 private:
     string product_name;
-    int product_price;
+    double product_price;
 
 public:
     Product()
@@ -15,17 +15,17 @@ public:
         this->product_name = "";
         this->product_price = 0;
     }
-    Product(string name, int price)
+    Product(string name, double price)
     {
         this->product_name = name;
         this->product_price = price;
     }
-    void change_product_price(int price)
+    void change_product_price(double price)
     {
         this->product_price = price;
     }
 
-    int getProduct_price() const
+    double getProduct_price() const
     {
         return product_price;
     }

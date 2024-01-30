@@ -50,7 +50,7 @@ public:
     {
         string categName;
         string prodName;
-        int prodPrice;
+        double prodPrice;
         ifstream inputFile(MENU);
         categoriesList->emptyMenu();
 
