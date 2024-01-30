@@ -3,8 +3,9 @@
 
 using namespace std;
 
-void main()
+int main()
 {
 	Hotel *hotel = new Hotel("Fri-Chicks");
 	hotel->MainMenu();
+	return 0;
 }

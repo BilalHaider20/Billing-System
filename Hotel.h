@@ -4,7 +4,7 @@
 #include <conio.h>
 #include <fstream>
 
-#include "Menu.cpp"
+#include "Menu.h"
 #include "order.h"
 #include "productsList.h"
 
