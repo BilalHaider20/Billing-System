@@ -30,21 +30,20 @@ namespace billingSystemGUI
 		this->Hide();
 	}
 	System::Void MyForm::button2_Click(System::Object^ sender, System::EventArgs^ e) {
-		hotel->TakeOrder();
+		//hotel->TakeOrder();
 	}
 	System::Void MyForm::button3_Click(System::Object^ sender, System::EventArgs^ e) {
-		hotel->BillingHistory();
+		//hotel->BillingHistory();
 	}
 	System::Void MyForm::button4_Click(System::Object^ sender, System::EventArgs^ e) {
-		hotel->View_Total_Sales();
+		//	hotel->View_Total_Sales();
 	}
 	System::Void MyForm::button5_Click(System::Object^ sender, System::EventArgs^ e) {
 		hotel->refreshData();
 		MessageBox::Show("Data Loaded Successfully!", "Message");
 	}
 	System::Void MyForm::button6_Click(System::Object^ sender, System::EventArgs^ e) {
-		hotel->exit();
-		this->Close();
+		Application::Exit();
 	}
 }
 

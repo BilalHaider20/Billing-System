@@ -225,6 +225,7 @@ namespace billingSystemGUI {
 			e->Handled = true;
 	}
 	private: System::Void AddItems_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+		Application::Exit();
 	}
 	};
 }

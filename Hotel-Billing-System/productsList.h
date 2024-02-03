@@ -45,7 +45,9 @@ public:
 			Node<Product>* temp = head;
 			head = head->getNextPtr();
 			delete temp;
+			temp = nullptr;
 		}
+		tail = nullptr;
 	}
 
 	int getSize() const

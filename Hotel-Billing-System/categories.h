@@ -9,11 +9,12 @@ using namespace std;
 class Categories
 {
 private:
+	int size;
 	Node<ProductsList*>* head;
 	Node<ProductsList*>* tail;
-	int size;
 
 public:
+
 	Node<ProductsList*>* getHead()
 	{
 		return head;
@@ -28,6 +29,8 @@ public:
 	~Categories()
 	{
 		emptyMenu();
+		head = nullptr;
+		tail = nullptr;
 	}
 
 	void emptyMenu()
@@ -36,7 +39,10 @@ public:
 		{
 			Node<ProductsList*>* temp = head;
 			head = head->getNextPtr();
-			delete temp->getData();
+			if (temp->getData() != nullptr)
+			{
+				delete temp->getData();
+			}
 			delete temp;
 			size--;
 		}

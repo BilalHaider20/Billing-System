@@ -20,14 +20,17 @@ namespace billingSystemGUI
 		hotel->getMenu().delete_Category(selectedCategoryIndex);
 		MessageBox::Show("Category Removed Successfully!", "Message");
 		comboBox1->Items->Clear();
+		button2->Enabled = false;
 		AddItemsToComboBox();
-
 	}
 	System::Void remCategForm::comboBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (comboBox1->Text != "")
 		{
 			button2->Enabled = true;
 		}
+		else
+			button2->Enabled = false;
+
 
 	}
 

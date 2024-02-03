@@ -143,6 +143,7 @@ namespace billingSystemGUI {
 			// label2
 			// 
 			this->label2->AutoSize = true;
+			this->label2->Enabled = false;
 			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label2->Location = System::Drawing::Point(30, 122);
@@ -201,6 +202,8 @@ namespace billingSystemGUI {
 
 	private: System::Void comboBox2_TextChanged(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void RemoveItems_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+
+		Application::Exit();
 	}
 	};
 }

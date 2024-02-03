@@ -11,9 +11,8 @@ namespace billingSystemGUI {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	/// <summary>
-	/// Summary for MyForm
-	/// </summary>
+
+
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
 	public:
@@ -28,17 +27,14 @@ namespace billingSystemGUI {
 		}
 
 
-
 	protected:
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
 		~MyForm()
 		{
 			if (components)
 			{
 				delete components;
 			}
+			hotel->exit();
 			delete hotel;
 		}
 
@@ -197,6 +193,7 @@ namespace billingSystemGUI {
 	private: System::Void button6_Click(System::Object^ sender, System::EventArgs^ e);
 
 	private: System::Void MyForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+		Application::Exit();
 	}
 	};
 }
